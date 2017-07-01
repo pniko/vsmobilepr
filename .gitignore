@@ -51,3 +51,10 @@ buck-out/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
+
+app/**/*.js
+app/**/*.map
+index.ios.js
+index.ios.js.map
+index.android.js
+index.android.js.map
