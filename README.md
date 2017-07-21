@@ -1,4 +1,4 @@
-# vsmobilepr
+# VSTS Mobile Pull Request
 Currently Visual Studio Team Services (VSTS) has support for Pull Requests on desktop view only. Sometime, we just want to take a sneak peek on a pull request on a mobile device. GitHub has a good support for that, but VSTS is lacking this functionality. This project aims to add this feature to VSTS by creating a react native mobile app that will use the existing VSTS's APIs to show pull requests on mobile devices.
 
 ## Prerequisites:
