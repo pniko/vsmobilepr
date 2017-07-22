@@ -8,7 +8,7 @@ Currently Visual Studio Team Services (VSTS) has support for Pull Requests on de
 
 ## Running the app
 After cloning the repo, and inside the project folder run:
-1. `npm insall`
+1. `npm install`
 2. `react-native run-ios`
 
 ## Running the app on vscode 
