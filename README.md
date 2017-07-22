@@ -14,6 +14,10 @@ After cloning the repo, and inside the project folder run:
 3. `react-native run-ios`
 
 ## Running the app on vscode 
+Required VSCode extension:
+1. React Native Tools
+
+
 After cloning the repo, and inside the project folder run:
 1. `npm insall`
 2. Choose the `Debug iOS` option in VSCode and Run it.
