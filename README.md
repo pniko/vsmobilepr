@@ -21,6 +21,11 @@ After cloning the repo, and inside the project folder run:
 1. `npm insall`
 2. Choose the `Debug iOS` option in VSCode and Run it.
 
+#running tests
+1. `npm install`
+2. `npm test` or `npm run testwatch`
+Note: Currently there is no support for vscode debugging.
+
 ## Enable Live Reload in iOS
 On the simulator, while the iOS app is running, click `Command+D` and choose `Enable Live Reload`. 
 Now every time, you save a `js` file, it will automatically update the release. 
