@@ -5,11 +5,13 @@ Currently Visual Studio Team Services (VSTS) has support for Pull Requests on de
 1. Install node/watchman: https://facebook.github.io/react-native/docs/getting-started.html#node-watchman
 2. Install react native cli: https://facebook.github.io/react-native/docs/getting-started.html#the-react-native-cli
 3. Install XCode: https://facebook.github.io/react-native/docs/getting-started.html#xcode
+4. Install typescript: https://github.com/cyounes/Oldcyounes.ruhoh.com/blob/master/posts/how-to-install-typescript-on-mac-os-x.md
 
 ## Running the app
 After cloning the repo, and inside the project folder run:
 1. `npm install`
-2. `react-native run-ios`
+2. `tsc`
+3. `react-native run-ios`
 
 ## Running the app on vscode 
 After cloning the repo, and inside the project folder run:
