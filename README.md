@@ -15,8 +15,7 @@ After cloning the repo, and inside the project folder run:
 
 ## Running the app on vscode 
 Required VSCode extension:
-1. React Native Tools
-
+1. `React Native Tools`
 
 After cloning the repo, and inside the project folder run:
 1. `npm insall`
