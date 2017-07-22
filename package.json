@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "concurrently 'tsc -w' 'react-native run-ios'",
-    "test": "concurrently 'tsc -w' 'jest --watchAll'"
+    "test": "concurrently 'tsc' 'jest --forceExit'",
+    "testwatch": "concurrently 'tsc -w' 'jest --watchAll'"
   },
   "dependencies": {
     "mobx": "^3.1.16",
