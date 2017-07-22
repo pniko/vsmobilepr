@@ -1,17 +1,17 @@
 {
     "version": "0.2.0",
     "configurations": [
-        
-    {
-        "name": "Debug iOS",
-        "program": "${workspaceRoot}/.vscode/launchReactNative.js",
-        "type": "reactnative",
-        "request": "launch",
-        "platform": "ios",
-        "sourceMaps": true,
-        "target": "iPhone 5s",
-        "outDir": "${workspaceRoot}/.vscode/.react"
-    },
+        {
+            "name": "Debug iOS",
+            "program": "${workspaceRoot}/.vscode/launchReactNative.js",
+            "type": "reactnative",
+            "request": "launch",
+            "platform": "ios",
+            "sourceMaps": true,
+            "target": "iPhone 5s",
+            "outDir": "${workspaceRoot}/.vscode/.react",
+            "preLaunchTask": "tsc"
+        },
         {
             "name": "Debug Android",
             "program": "${workspaceRoot}/.vscode/launchReactNative.js",
@@ -19,7 +19,8 @@
             "request": "launch",
             "platform": "android",
             "sourceMaps": true,
-            "outDir": "${workspaceRoot}/.vscode/.react"
+            "outDir": "${workspaceRoot}/.vscode/.react",
+            "preLaunchTask": "tsc"
         },
         {
             "name": "Debug iOS",
@@ -29,7 +30,8 @@
             "platform": "ios",
             "target": "iPhone 5s",
             "sourceMaps": true,
-            "outDir": "${workspaceRoot}/.vscode/.react"
+            "outDir": "${workspaceRoot}/.vscode/.react",
+            "preLaunchTask": "tsc"
         },
         {
             "name": "Attach to packager",
@@ -37,7 +39,8 @@
             "type": "reactnative",
             "request": "attach",
             "sourceMaps": true,
-            "outDir": "${workspaceRoot}/.vscode/.react"
+            "outDir": "${workspaceRoot}/.vscode/.react",
+            "preLaunchTask": "tsc"
         },
         {
             "name": "Debug in Exponent",
@@ -46,7 +49,8 @@
             "request": "launch",
             "platform": "exponent",
             "sourceMaps": true,
-            "outDir": "${workspaceRoot}/.vscode/.react"
+            "outDir": "${workspaceRoot}/.vscode/.react",
+            "preLaunchTask": "tsc"
         }
     ]
 }
