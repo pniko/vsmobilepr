@@ -7,7 +7,11 @@ class LoginState {
   text: string
 }
 
-export default class Login extends Component<{}, LoginState> {
+class LoginProps {
+  onLoginClicked?: () => void;
+}
+
+export default class Login extends Component<LoginProps, LoginState> {
 
   constructor(props) {
     super(props);
@@ -15,10 +19,10 @@ export default class Login extends Component<{}, LoginState> {
     const token = TokenManager.readToken()
       .then((token: string) => {
         if (token !== null) {
-          this.setState({ text: token })
+          this.setState({ text: token || '' })
         }
       });
-  }
+  } 
 
   render() {
     return (
@@ -27,14 +31,12 @@ export default class Login extends Component<{}, LoginState> {
           style={styles.input}
           placeholder='VSTS Access Token'
           value={this.state.text}
-          onChangeText={async (text) => {
-            console.log(text + "HAHA");
+          onChangeText={(text) => {
             this.setState({ text: text });
-            await TokenManager.saveToken(text);
           }}
         />
         <Button
-          onPress={this.onLoginButtonPressed}
+          onPress={this.onLoginButtonPressed.bind(this)}
           title='Login'
           disabled={this.state.text === ''}
         />
@@ -42,7 +44,9 @@ export default class Login extends Component<{}, LoginState> {
     );
   }
 
-  onLoginButtonPressed(): void {
+  async onLoginButtonPressed() {
+    await TokenManager.saveToken(this.state.text);
+    this.props.onLoginClicked();
     console.log('Login pressed')
   }
 }
