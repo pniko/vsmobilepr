@@ -9,8 +9,7 @@
             "platform": "ios",
             "sourceMaps": true,
             "target": "iPhone 5s",
-            "outDir": "${workspaceRoot}/.vscode/.react",
-            "preLaunchTask": "tsc"
+            "outDir": "${workspaceRoot}/.vscode/.react"
         },
         {
             "name": "Debug Android",
