@@ -7,11 +7,18 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  input: {
-    height: 40, 
-    borderColor: 'gray', 
+  listcontainer: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  list: {
+    flex: 1
+  },
+  searchBar: {
+    height: 40,
+    borderColor: 'gray',
     borderWidth: 1,
-    margin: 20,
+    margin: 10,
     padding: 10
   }
 });

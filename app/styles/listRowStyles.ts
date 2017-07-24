@@ -2,16 +2,16 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
+    height: 44,
+    backgroundColor: 'white',
+    padding: 10,
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
   },
-  input: {
-    height: 40, 
-    borderColor: 'gray', 
-    borderWidth: 1,
-    margin: 20,
-    padding: 10
+  text: {
+    flex: 1,
+    color: 'black',
+    fontSize: 20
   }
 });
