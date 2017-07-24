@@ -11,7 +11,7 @@ export class ListRow extends Component<ListRowProps, {}> {
   render() {
     return (
       <View style={styles.container} >
-        <Text style={styles.text}>{this.props.title}dsa</Text>
+        <Text style={styles.text}>{this.props.title}</Text>
       </View>
     );
   }
