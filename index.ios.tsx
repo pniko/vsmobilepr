@@ -17,6 +17,8 @@ import {
 
 @observer export default class ReactNativeMobX extends Component {
 
+  @observable showLogin = true;
+
   render() {
       return <Login onLoginClicked={() => { this.showLogin = false;}}/>
   }
