@@ -9,7 +9,7 @@ export class TeamsStore extends SearchListStore {
     _projectName: string; 
 
     @action 
-    async fetchData(projectName: string) {
+    async fetchTeams(projectName: string) {
         this._projectName = projectName;
         return super.fetchData(); 
     }
@@ -22,7 +22,7 @@ export class TeamsStore extends SearchListStore {
         return data.value;
     }
 
-    getPath(context?: any): string {
+    getPath(): string {
         const base = `https://msmobilecenter.visualstudio.com/DefaultCollection/_apis/projects`;
         return `${base}/${this._projectName}/teams?api-version=1.0`   
     }

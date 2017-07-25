@@ -1331,14 +1331,14 @@ var VsMobilePR = _wrapComponent("VsMobilePR")(function (_Component) {
                         _this2.showLogin = false;
                     }, __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 26
+                        lineNumber: 25
                     }
                 });
             } else {
                 return _react3.default.createElement(_projects2.default, {
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 29
+                        lineNumber: 28
                     }
                 });
             }
@@ -58586,7 +58586,7 @@ var SearchListStore = exports.SearchListStore = function () {
 
     _createClass(SearchListStore, [{
         key: "fetchData",
-        value: function fetchData(context) {
+        value: function fetchData() {
             var headers, response, json;
             return regeneratorRuntime.async(function fetchData$(_context) {
                 while (1) {
@@ -58601,7 +58601,7 @@ var SearchListStore = exports.SearchListStore = function () {
                         case 4:
                             headers = _context.sent;
                             _context.next = 7;
-                            return regeneratorRuntime.awrap(fetch(this.getPath(context), {
+                            return regeneratorRuntime.awrap(fetch(this.getPath(), {
                                 headers: headers,
                                 method: 'GET'
                             }));
@@ -65429,7 +65429,7 @@ var Teams = _wrapComponent("Teams")(function (_Component) {
     _createClass(Teams, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            this.store.fetchData(this.props.projectName);
+            this.store.fetchTeams(this.props.projectName);
         }
     }, {
         key: "render",
@@ -65512,9 +65512,9 @@ var TeamsStore = exports.TeamsStore = function (_SearchListStore) {
     }
 
     _createClass(TeamsStore, [{
-        key: "fetchData",
-        value: function fetchData(projectName) {
-            return regeneratorRuntime.async(function fetchData$(_context) {
+        key: "fetchTeams",
+        value: function fetchTeams(projectName) {
+            return regeneratorRuntime.async(function fetchTeams$(_context) {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
@@ -65544,7 +65544,7 @@ var TeamsStore = exports.TeamsStore = function (_SearchListStore) {
         }
     }, {
         key: "getPath",
-        value: function getPath(context) {
+        value: function getPath() {
             var base = "https://msmobilecenter.visualstudio.com/DefaultCollection/_apis/projects";
             return base + "/" + this._projectName + "/teams?api-version=1.0";
         }
@@ -65553,7 +65553,7 @@ var TeamsStore = exports.TeamsStore = function (_SearchListStore) {
     return TeamsStore;
 }(_searchListStore.SearchListStore);
 
-__decorate([_mobx.action], TeamsStore.prototype, "fetchData", null);
+__decorate([_mobx.action], TeamsStore.prototype, "fetchTeams", null);
 }, 627, null, "vsts-mobile-pr/app/stores/teamsStore.js");
 __d(/* vsts-mobile-pr/app/components/listRow.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
     value: true
@@ -65678,7 +65678,7 @@ exports.default = _reactNative.StyleSheet.create({
     },
     text: {
         flex: 1,
-
+        color: 'black',
         fontSize: 20
     }
 });

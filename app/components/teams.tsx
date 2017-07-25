@@ -24,7 +24,7 @@ export class Teams extends Component<TeamsProps, {}> {
   }
 
   componentDidMount() {
-    this.store.fetchData(this.props.projectName);
+    this.store.fetchTeams(this.props.projectName);
   }
 
   render() {
