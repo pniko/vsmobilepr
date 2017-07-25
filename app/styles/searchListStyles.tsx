@@ -14,6 +14,12 @@ export default StyleSheet.create({
   list: {
     flex: 1
   },
+  staticRow: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    height: 40
+  },
   searchBar: {
     height: 40,
     borderColor: 'gray',
