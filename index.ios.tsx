@@ -7,6 +7,7 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react/native';
 import Login from './app/components/login';
 import Projects from './app/components/projects';
+import Teams from './app/components/teams';
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -17,7 +18,7 @@ import {
   NavigatorIOS
 } from 'react-native';
 
-@observer export default class ReactNativeMobX extends Component {
+@observer export default class VsMobilePR extends Component {
 
   @observable showLogin = true;
 
@@ -30,5 +31,4 @@ import {
   }
 }
 
-
-AppRegistry.registerComponent('ReactNativeMobX', () => ReactNativeMobX);
+AppRegistry.registerComponent('VsMobilePR', () => VsMobilePR);
