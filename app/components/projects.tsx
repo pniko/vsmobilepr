@@ -13,7 +13,6 @@ import styles from '../styles/searchListStyles';
 export default class Projects extends Component {
 
   private store: ProjectsStore;
-  @observable selectedProjectName: string;
 
   constructor() {
     super();
@@ -25,18 +24,19 @@ export default class Projects extends Component {
   }
 
   render() {
-    if (this.store.loadingState == LoadingState.Loaded && this.selectedProjectName) {
-      return (<Teams projectName={this.selectedProjectName} />);
-    } else {
       return (<SearchList
         store={this.store}
         hasSearch={true}
         renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(projectName) => this.onProjectSelected(projectName)} />}
       />);
-    }
   }
 
   private onProjectSelected(projectName: string) {
-    this.selectedProjectName = projectName;
+    const nextRoute = {
+      component: Teams,
+      title: projectName,
+      passProps: { projectName: projectName }
+    };
+    this.props.navigator.push(nextRoute);
   }
 }

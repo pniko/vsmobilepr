@@ -16,7 +16,6 @@ class TeamsProps {
 export class Teams extends Component<TeamsProps, {}> {
 
   private store: TeamsStore;
-  @observable selectedTeamName: string;
 
   constructor() {
     super();
@@ -28,18 +27,18 @@ export class Teams extends Component<TeamsProps, {}> {
   }
 
   render() {
-    if (this.store.loadingState === LoadingState.Loaded && this.selectedTeamName) {
-      return (<View />)
-    } else {
       return (<SearchList
         store={this.store}
-        hasSearch={true}
         renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(teamName) => this.onTeamSelected(teamName)} />}
       />);
-    }
   }
 
   private onTeamSelected(teamName: string) {
-    this.selectedTeamName = teamName;
+    // const nextRoute = {
+    //   component: Teams,
+    //   title: projectName,
+    //   passProps: { projectName: projectName }
+    // };
+    // this.props.navigator.push(nextRoute);
   }
 }

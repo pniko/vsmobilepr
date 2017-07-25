@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
-import { ListView, TextInput, View, Text, Button } from 'react-native';
+import { ActivityIndicator, ListView, TextInput, View, Text, Button } from 'react-native';
 import TokenManager from '../helpers/tokenManager';
 import { SearchListStore, LoadingState } from '../stores/searchListStore';
 import styles from '../styles/searchListStyles';
@@ -67,7 +67,7 @@ export class SearchList extends Component<SearchListProps, {}> {
     const { store } = this.props;
     return (
       <View style={styles.container}>
-        <Text>Loading content...</Text>
+        <ActivityIndicator animating={store.loadingState === LoadingState.Loading}/>
       </View>
     );
   }

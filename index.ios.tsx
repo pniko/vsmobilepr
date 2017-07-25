@@ -24,9 +24,15 @@ import {
 
   render() {
     if (this.showLogin) {
-      return <Login onLoginClicked={() => { this.showLogin = false;}}/>
+      return <Login onLoginClicked={() => { this.showLogin = false; }} />
     } else {
-      return <Projects />
+      return <NavigatorIOS
+        initialRoute={{
+          component: Projects,
+          title: 'Projects',
+        }}
+        style={{ flex: 1 }}
+      />
     }
   }
 }
