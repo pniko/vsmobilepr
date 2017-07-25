@@ -54,6 +54,7 @@ export class CreateAccount extends Component<CreateAccountProps, CreateAccountSt
                 }
               }
             }}
+            style={{height: 65}}
           />
           <View style={styles.container}>
             <View style={styles.inputGroupContainer}>
@@ -75,7 +76,7 @@ class Empty extends Component {
 
   render() {
     return (
-      <View style={{flex:1}}/>
+      <View/>
     );
   }
 }

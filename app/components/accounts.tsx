@@ -19,6 +19,7 @@ export default class Accounts extends Component<{}, AccountState> {
       .then((values: IAccount[]) => {
         this.setState({ accounts: values } as AccountState);
       });
+    ;
   }
 
   componentDidMount() {
@@ -33,7 +34,7 @@ export default class Accounts extends Component<{}, AccountState> {
         <View style={styles.container}>
           <Text style={styles.emptyText}>{emptyText}</Text>
         </View>
-        <CreateAccount modalVisible={this.state.modalVisible} onAccountSaved={this.onAccountSaved} onAccountCanceled={this.onAccountCanceled} />
+        <CreateAccount modalVisible={this.state.modalVisible} onAccountSaved={this.onAccountSaved.bind(this)} onAccountCanceled={this.onAccountCanceled.bind(this)} />
       </View>
     );
   }
