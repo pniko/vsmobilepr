@@ -4,13 +4,13 @@ export default StyleSheet.create({
   container: {
     height: 44,
     backgroundColor: 'white',
-    padding: 10,
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
+    flexDirection: 'column'
   },
   text: {
     flex: 1,
+    marginLeft: 20,
+    margin: 10,
     color: 'black',
     fontSize: 20
   }
