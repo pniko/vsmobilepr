@@ -5,12 +5,19 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   emptyText: {
     color: 'gray',
     fontSize: 20,
     padding: 40,
     textAlign: 'center'
-  }
+  },
+  listcontainer: {
+    marginTop: 65,
+    flex: 1
+  },
+  list: {
+    flex: 1
+  },
 });

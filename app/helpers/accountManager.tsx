@@ -1,4 +1,5 @@
 import { IAccount } from '../models/IAccount';
+import store from 'react-native-simple-store';
 
 const STORAGE_KEY: string = "ACCOUNTS";
 

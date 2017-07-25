@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { AppRegistry, Button, Text, TextInput, View } from 'react-native';
+import { AppRegistry, Button, Text, TextInput, View, FlatList } from 'react-native';
 import AccountManager from '../helpers/accountManager';
 import { IAccount } from '../models/IAccount';
 import { CreateAccount } from '../components/createAccount';
+import { ListRow } from './listRow';
+import Projects from '../components/projects';
 import styles from '../styles/accountsStyles';
 
 class AccountState {
@@ -28,13 +30,32 @@ export default class Accounts extends Component<{}, AccountState> {
   }
 
   render() {
-    const emptyText = 'Tap the "Add" button in order to create a new account.';
+
     return (
       <View style={styles.container}>
-        <View>
-          <Text style={styles.emptyText}>{emptyText}</Text>
-        </View>
+        {this.state.accounts && this.state.accounts.length > 0 ? this.renderList() : this.renderEmptyText()}
         <CreateAccount modalVisible={this.state.modalVisible} onAccountSaved={this.onAccountSaved.bind(this)} onAccountCanceled={this.onAccountCanceled.bind(this)} />
+      </View>
+    );
+  }
+
+  renderList(): JSX.Element {
+    return (
+      <View style={styles.listcontainer}>
+        <FlatList
+          style={styles.list}
+          data={this.state.accounts}
+          renderItem={({ item }) => <ListRow title={item.name} onRowPressed={(projectName) => this.onProjectSelected(projectName)} />}
+        />
+      </View>
+    );
+  }
+
+  renderEmptyText(): JSX.Element {
+    const emptyText = 'Tap the "Add" button in order to create a new account.';
+    return (
+      <View>
+        <Text style={styles.emptyText}>{emptyText}</Text>
       </View>
     );
   }
@@ -43,11 +64,22 @@ export default class Accounts extends Component<{}, AccountState> {
     this.setState({ modalVisible: true } as AccountState);
   }
 
-  onAccountSaved(account: IAccount): void {
-    this.setState({ modalVisible: false } as AccountState);
+  async onAccountSaved(account: IAccount): Promise<void> {
+    await AccountManager.saveAccount(account)
+    const accounts = await AccountManager.readAccounts()
+    this.setState({ accounts: accounts, modalVisible: false });
   }
 
   onAccountCanceled(): void {
-    this.setState({ modalVisible: false } as AccountState);
+    this.setState({ modalVisible: false });
+  }
+
+  onProjectSelected(projectName: string) {
+    const nextRoute = {
+      component: Projects,
+      title: projectName,
+      passProps: { projectName: projectName }
+    };
+    this.props.navigator.push(nextRoute);
   }
 }
