@@ -39,12 +39,21 @@ export class Teams extends Component<TeamsProps, {}> {
             return (<Repositories projectName={this._projectName} teamName={this.selectedTeamName} />)
         } else {
             return (<View style={styles.container}>
-                <Button title="skip" onPress={() => {this.skipped = true}} />
+                <Button title="skip" onPress={() => { this.skipped = true }} />
                 <SearchList
-                store={this.store}
-                hasSearch={true}
-                renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(teamName) => this.selectedTeamName = teamName} />}
-            /></View>);
+                    store={this.store}
+                    hasSearch={true}
+                    renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(teamName) => this.onTeamSelected(teamName)} />}
+                /></View>);
         }
+    }
+
+    private onTeamSelected(teamName: string) {
+        const nextRoute = {
+            component: Repositories,
+            title: this._projectName,
+            passProps: { projectName: this._projectName, teamName: this.selectedTeamName }
+        };
+        (this.props as any).navigator.push(nextRoute);
     }
 }

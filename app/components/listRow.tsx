@@ -11,11 +11,9 @@ export class ListRow extends Component<ListRowProps, {}> {
 
   render() {
     return (
-      <View style={styles.container} >
-        <TouchableHighlight onPress={() => this.onRowPressed()}>
+        <TouchableHighlight style={styles.container} onPress={() => this.onRowPressed()} underlayColor="white">
           <Text style={styles.text}>{this.props.title}</Text>
         </TouchableHighlight>
-      </View>
     );
   }
 

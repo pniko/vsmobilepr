@@ -8,6 +8,7 @@ export default StyleSheet.create({
     alignSelf: 'stretch'
   },
   listcontainer: {
+    marginTop: 65,
     flex: 1,
     flexDirection: 'column',
   },
