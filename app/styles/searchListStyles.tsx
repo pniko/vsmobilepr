@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'stretch'
   },
   listcontainer: {
     flex: 1,

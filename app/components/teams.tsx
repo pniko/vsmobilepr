@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { SearchList } from './searchList';
 import { LoadingState } from '../stores/searchListStore';
 import { TeamsStore } from '../stores/teamsStore';
@@ -19,6 +19,7 @@ export class Teams extends Component<TeamsProps, {}> {
     private store: TeamsStore;
     private _projectName: string;
     @observable selectedTeamName: string;
+    @observable skipped: boolean;
 
     constructor() {
         super();
@@ -31,18 +32,19 @@ export class Teams extends Component<TeamsProps, {}> {
     }
 
     render() {
+        if (this.skipped) {
+            return (<Repositories projectName={this._projectName} />)
+        }
         if (this.store.loadingState === LoadingState.Loaded && this.selectedTeamName) {
             return (<Repositories projectName={this._projectName} teamName={this.selectedTeamName} />)
         } else {
-            return (<SearchList
+            return (<View style={styles.container}>
+                <Button title="skip" onPress={() => {this.skipped = true}} />
+                <SearchList
                 store={this.store}
                 hasSearch={true}
-                renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(teamName) => this.onTeamSelected(teamName)} />}
-            />);
+                renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(teamName) => this.selectedTeamName = teamName} />}
+            /></View>);
         }
-    }
-
-    private onTeamSelected(teamName: string) {
-        this.selectedTeamName = teamName;
     }
 }

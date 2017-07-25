@@ -29,7 +29,7 @@ export class Repositories extends Component<RepositoriesProps, {}> {
   }
 
   render() {
-    if (this.store.loadingState === LoadingState.Loaded && this.props.projectName) {
+    if (this.store.loadingState === LoadingState.Loaded && this.selectedRepositoryName) {
       return (<View />)
     } else {
       return (<SearchList

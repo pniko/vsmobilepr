@@ -58465,22 +58465,9 @@ var SearchList = _wrapComponent("SearchList")(function (_Component) {
                         lineNumber: 32
                     }
                 }) : null,
-                _react3.default.createElement(
-                    _reactNative.View,
-                    { style: _searchListStyles2.default.staticRow, __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 33
-                        }
-                    },
-                    _react3.default.createElement(_reactNative.Button, { onPress: function onPress() {}, title: "None", __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 34
-                        }
-                    })
-                ),
                 _react3.default.createElement(_reactNative.ListView, { style: _searchListStyles2.default.list, dataSource: store.datasource, renderRow: renderRow, __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 36
+                        lineNumber: 33
                     }
                 })
             );
@@ -58494,7 +58481,7 @@ var SearchList = _wrapComponent("SearchList")(function (_Component) {
                 _reactNative.View,
                 { style: _searchListStyles2.default.container, __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 41
+                        lineNumber: 38
                     }
                 },
                 _react3.default.createElement(
@@ -58502,14 +58489,14 @@ var SearchList = _wrapComponent("SearchList")(function (_Component) {
                     {
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 42
+                            lineNumber: 39
                         }
                     },
                     "No items available..."
                 ),
                 _react3.default.createElement(_reactNative.Button, { onPress: this.onReloadButtonClicked.bind(this), title: "Reload", __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 43
+                        lineNumber: 40
                     }
                 })
             );
@@ -58523,7 +58510,7 @@ var SearchList = _wrapComponent("SearchList")(function (_Component) {
                 _reactNative.View,
                 { style: _searchListStyles2.default.container, __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 48
+                        lineNumber: 45
                     }
                 },
                 _react3.default.createElement(
@@ -58531,7 +58518,7 @@ var SearchList = _wrapComponent("SearchList")(function (_Component) {
                     {
                         __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 49
+                            lineNumber: 46
                         }
                     },
                     "Loading content..."
@@ -65338,7 +65325,7 @@ exports.default = _reactNative.StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignSelf: 'stretch'
     },
     listcontainer: {
         flex: 1,
@@ -65379,6 +65366,8 @@ var _jsxFileName = "/Users/iziklisbon/Documents/vsmobilepr2/app/components/teams
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _reactNative = require(28            ); // 28 = react-native
+
 var _searchList = require(622           ); // 622 = ./searchList
 
 var _searchListStore = require(623                        ); // 623 = ../stores/searchListStore
@@ -65392,6 +65381,10 @@ var _listRow = require(628        ); // 628 = ./listRow
 var _native = require(13                 ); // 13 = mobx-react/native
 
 var _mobx = require(12    ); // 12 = mobx
+
+var _searchListStyles = require(625                         ); // 625 = ../styles/searchListStyles
+
+var _searchListStyles2 = _interopRequireDefault(_searchListStyles);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65456,38 +65449,56 @@ var Teams = _wrapComponent("Teams")(function (_Component) {
         value: function render() {
             var _this2 = this;
 
-            if (this.store.loadingState === _searchListStore.LoadingState.Loaded && this.selectedTeamName) {
-                return _react3.default.createElement(_repositories.Repositories, { projectName: this._projectName, teamName: this.selectedTeamName, __source: {
+            if (this.skipped) {
+                return _react3.default.createElement(_repositories.Repositories, { projectName: this._projectName, __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 28
-                    }
-                });
-            } else {
-                return _react3.default.createElement(_searchList.SearchList, { store: this.store, hasSearch: true, renderRow: function renderRow(rowData) {
-                        return _react3.default.createElement(_listRow.ListRow, { title: rowData, onRowPressed: function onRowPressed(teamName) {
-                                return _this2.onTeamSelected(teamName);
-                            }, __source: {
-                                fileName: _jsxFileName,
-                                lineNumber: 31
-                            }
-                        });
-                    }, __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 31
+                        lineNumber: 30
                     }
                 });
             }
-        }
-    }, {
-        key: "onTeamSelected",
-        value: function onTeamSelected(teamName) {
-            this.selectedTeamName = teamName;
+            if (this.store.loadingState === _searchListStore.LoadingState.Loaded && this.selectedTeamName) {
+                return _react3.default.createElement(_repositories.Repositories, { projectName: this._projectName, teamName: this.selectedTeamName, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 33
+                    }
+                });
+            } else {
+                return _react3.default.createElement(
+                    _reactNative.View,
+                    { style: _searchListStyles2.default.container, __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 36
+                        }
+                    },
+                    _react3.default.createElement(_reactNative.Button, { title: "skip", onPress: function onPress() {
+                            _this2.skipped = true;
+                        }, __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 37
+                        }
+                    }),
+                    _react3.default.createElement(_searchList.SearchList, { store: this.store, hasSearch: true, renderRow: function renderRow(rowData) {
+                            return _react3.default.createElement(_listRow.ListRow, { title: rowData, onRowPressed: function onRowPressed(teamName) {
+                                    return _this2.selectedTeamName = teamName;
+                                }, __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 38
+                                }
+                            });
+                        }, __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 38
+                        }
+                    })
+                );
+            }
         }
     }]);
 
     return Teams;
 }(_react2.Component));
 __decorate([_mobx.observable], Teams.prototype, "selectedTeamName", void 0);
+__decorate([_mobx.observable], Teams.prototype, "skipped", void 0);
 exports.Teams = Teams = __decorate([_native.observer], Teams);
 exports.Teams = Teams;
 }, 626, null, "vsts-mobile-pr/app/components/teams.js");
@@ -65667,7 +65678,7 @@ var Repositories = _wrapComponent("Repositories")(function (_Component) {
         value: function render() {
             var _this2 = this;
 
-            if (this.store.loadingState === _searchListStore.LoadingState.Loaded && this.props.projectName) {
+            if (this.store.loadingState === _searchListStore.LoadingState.Loaded && this.selectedRepositoryName) {
                 return _react3.default.createElement(_reactNative.View, {
                     __source: {
                         fileName: _jsxFileName,
