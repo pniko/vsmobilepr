@@ -1,9 +1,7 @@
-import {
-  ListView
-} from 'react-native';
 import { observable, computed } from 'mobx'
 import { filter, startsWith, map } from 'lodash';
 import { SearchListStore } from './searchListStore';
+import AccountManager from '../helpers/accountManager';
 
 export class ProjectsStore extends SearchListStore {
 
@@ -18,7 +16,7 @@ export class ProjectsStore extends SearchListStore {
   }
 
   getPath(): string {
-    // TODO: Make account configurable
-    return 'https://msmobilecenter.visualstudio.com/DefaultCollection/_apis/projects?api-version=1.0';
+    const account = AccountManager.getCurrentAccount().name;
+    return `https://${account}.visualstudio.com/DefaultCollection/_apis/projects?api-version=1.0`;
   }
 }

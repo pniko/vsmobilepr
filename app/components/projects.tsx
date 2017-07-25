@@ -10,7 +10,7 @@ import { observable } from 'mobx'
 import styles from '../styles/searchListStyles';
 
 @observer
-export default class Projects extends Component {
+export default class Projects extends Component<{}, {}> {
 
   private store: ProjectsStore;
 

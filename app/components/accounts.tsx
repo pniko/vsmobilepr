@@ -6,6 +6,7 @@ import { CreateAccount } from '../components/createAccount';
 import { ListRow } from './listRow';
 import Projects from '../components/projects';
 import styles from '../styles/accountsStyles';
+import { find } from 'lodash';
 
 class AccountState {
   accounts: IAccount[];
@@ -43,9 +44,10 @@ export default class Accounts extends Component<{}, AccountState> {
     return (
       <View style={styles.listcontainer}>
         <FlatList
+          keyExtractor={item => item.name}
           style={styles.list}
           data={this.state.accounts}
-          renderItem={({ item }) => <ListRow title={item.name} onRowPressed={(projectName) => this.onProjectSelected(projectName)} />}
+          renderItem={({ item }) => <ListRow title={item.name} onRowPressed={(item) => this.onAccountSelected(item)} />}
         />
       </View>
     );
@@ -74,11 +76,12 @@ export default class Accounts extends Component<{}, AccountState> {
     this.setState({ modalVisible: false });
   }
 
-  onProjectSelected(projectName: string) {
+  onAccountSelected(accountName: string): void {
+    const account: IAccount = find(this.state.accounts, (item) => { return item.name = accountName; });
+    AccountManager.setCurrentAccount(account)
     const nextRoute = {
       component: Projects,
-      title: projectName,
-      passProps: { projectName: projectName }
+      title: account.name,
     };
     this.props.navigator.push(nextRoute);
   }

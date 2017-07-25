@@ -5,7 +5,8 @@ const STORAGE_KEY: string = "ACCOUNTS";
 
 class AccountManager {
 
-  // TODO: Switch to Oauth or secure storage for token
+  currentAccount: IAccount;
+
 
   async readAccounts(): Promise<IAccount[]> {
     try {
@@ -24,6 +25,18 @@ class AccountManager {
     } catch (error) {
       console.log(`TokenManager: Couldn't save token: ${error}`);
     }
+  }
+
+  getCurrentAccount(): IAccount {
+    return this.currentAccount;
+  }
+
+  setCurrentAccount(account: IAccount): void {
+    this.currentAccount = account;
+  }
+
+  resetCurrentAccount(): void {
+    this.currentAccount = undefined;
   }
 }
 
