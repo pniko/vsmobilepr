@@ -39,12 +39,11 @@ export class Teams extends Component<TeamsProps, {}> {
             return (<Repositories projectName={this._projectName} teamName={this.selectedTeamName} />)
         } else {
             return (<View style={styles.container}>
-                <Button title="skip" onPress={() => { this.skipped = true }} />
                 <SearchList
                     store={this.store}
                     hasSearch={true}
                     renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(teamName) => this.onTeamSelected(teamName)} />}
-                /></View>);
+                /><Button title="Don't Select Team" onPress={() => { this.skipped = true }} /></View>);
         }
     }
 
