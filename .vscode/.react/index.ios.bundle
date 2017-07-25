@@ -58333,7 +58333,7 @@ var Projects = _wrapComponent("Projects")(function (_Component) {
         value: function onProjectSelected(projectName) {
             var nextRoute = {
                 component: _teams.Teams,
-                title: projectName,
+                title: "Teams",
                 passProps: { projectName: projectName }
             };
             this.props.navigator.push(nextRoute);
@@ -58604,7 +58604,7 @@ var SearchListStore = exports.SearchListStore = function () {
                             json = _context.sent;
 
                             this.items = this.transformData(json);
-                            this.datasource = this.datasource.cloneWithRows((0, _lodash.map)(this.items, 'name'));
+                            this.datasource = this.datasource.cloneWithRows((0, _lodash.map)(this.items, this.visibleValue()));
                             this.loadingState = LoadingState.Loaded;
                             _context.next = 20;
                             break;
@@ -58654,6 +58654,11 @@ var SearchListStore = exports.SearchListStore = function () {
             this.filterTerm = filterTerm;
             var filteredItems = this.filterItems();
             this.datasource = this.datasource.cloneWithRows((0, _lodash.map)(filteredItems, 'name'));
+        }
+    }, {
+        key: "visibleValue",
+        value: function visibleValue() {
+            return "name";
         }
     }]);
 
@@ -65460,24 +65465,24 @@ var Teams = _wrapComponent("Teams")(function (_Component) {
                             lineNumber: 36
                         }
                     },
-                    _react3.default.createElement(_reactNative.Button, { title: "skip", onPress: function onPress() {
-                            _this2.skipped = true;
-                        }, __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 37
-                        }
-                    }),
                     _react3.default.createElement(_searchList.SearchList, { store: this.store, hasSearch: true, renderRow: function renderRow(rowData) {
                             return _react3.default.createElement(_listRow.ListRow, { title: rowData, onRowPressed: function onRowPressed(teamName) {
                                     return _this2.onTeamSelected(teamName);
                                 }, __source: {
                                     fileName: _jsxFileName,
-                                    lineNumber: 38
+                                    lineNumber: 37
                                 }
                             });
                         }, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 38
+                            lineNumber: 37
+                        }
+                    }),
+                    _react3.default.createElement(_reactNative.Button, { title: "Don't Select Team", onPress: function onPress() {
+                            return _this2.onTeamSelected();
+                        }, __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 37
                         }
                     })
                 );
@@ -65488,7 +65493,7 @@ var Teams = _wrapComponent("Teams")(function (_Component) {
         value: function onTeamSelected(teamName) {
             var nextRoute = {
                 component: _repositories.Repositories,
-                title: this._projectName,
+                title: "Repositories",
                 passProps: { projectName: this._projectName, teamName: this.selectedTeamName }
             };
             this.props.navigator.push(nextRoute);
@@ -65606,6 +65611,8 @@ var _reactNative = require(28            ); // 28 = react-native
 
 var _searchList = require(622           ); // 622 = ./searchList
 
+var _pullRequests = require(633             ); // 633 = ./pullRequests
+
 var _searchListStore = require(623                        ); // 623 = ../stores/searchListStore
 
 var _repositoriesStore = require(632                          ); // 632 = ../stores/repositoriesStore
@@ -65682,13 +65689,147 @@ var Repositories = _wrapComponent("Repositories")(function (_Component) {
                 return _react3.default.createElement(_reactNative.View, {
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 27
+                        lineNumber: 28
                     }
                 });
             } else {
                 return _react3.default.createElement(_searchList.SearchList, { store: this.store, hasSearch: true, renderRow: function renderRow(rowData) {
                         return _react3.default.createElement(_listRow.ListRow, { title: rowData, onRowPressed: function onRowPressed(repositoryName) {
                                 return _this2.onRepositorySelected(repositoryName);
+                            }, __source: {
+                                fileName: _jsxFileName,
+                                lineNumber: 31
+                            }
+                        });
+                    }, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 31
+                    }
+                });
+            }
+        }
+    }, {
+        key: "onRepositorySelected",
+        value: function onRepositorySelected(repositoryName) {
+            var nextRoute = {
+                component: _pullRequests.PullRequests,
+                title: "Pull Requests",
+                passProps: { projectName: this.props.projectName, teamName: this.props.teamName, repositoryName: repositoryName }
+            };
+            this.props.navigator.push(nextRoute);
+        }
+    }]);
+
+    return Repositories;
+}(_react2.Component));
+__decorate([_mobx.observable], Repositories.prototype, "selectedRepositoryName", void 0);
+exports.Repositories = Repositories = __decorate([_native.observer], Repositories);
+exports.Repositories = Repositories;
+}, 631, null, "vsts-mobile-pr/app/components/repositories.js");
+__d(/* vsts-mobile-pr/app/components/pullRequests.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.PullRequests = undefined;
+
+var _react2 = require(14     ); // 14 = react
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _index = require(407                                                    ); // 407 = ./../../node_modules/react-transform-hmr/lib/index.js
+
+var _index2 = _interopRequireDefault(_index);
+
+var _jsxFileName = "/Users/iziklisbon/Documents/vsmobilepr2/app/components/pullRequests.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactNative = require(28            ); // 28 = react-native
+
+var _searchList = require(622           ); // 622 = ./searchList
+
+var _searchListStore = require(623                        ); // 623 = ../stores/searchListStore
+
+var _pullRequestsStore = require(634                          ); // 634 = ../stores/pullRequestsStore
+
+var _listRow = require(628        ); // 628 = ./listRow
+
+var _native = require(13                 ); // 13 = mobx-react/native
+
+var _mobx = require(12    ); // 12 = mobx
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var _components = {
+    PullRequests: {
+        displayName: "PullRequests"
+    }
+};
+
+var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/Users/iziklisbon/Documents/vsmobilepr2/app/components/pullRequests.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+});
+
+function _wrapComponent(id) {
+    return function (Component) {
+        return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+}
+
+var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var PullRequestsProps = function PullRequestsProps() {
+    _classCallCheck(this, PullRequestsProps);
+};
+
+var PullRequests = _wrapComponent("PullRequests")(function (_Component) {
+    _inherits(PullRequests, _Component);
+
+    function PullRequests() {
+        _classCallCheck(this, PullRequests);
+
+        var _this = _possibleConstructorReturn(this, (PullRequests.__proto__ || Object.getPrototypeOf(PullRequests)).call(this));
+
+        _this.store = new _pullRequestsStore.PullRequestsStore();
+        return _this;
+    }
+
+    _createClass(PullRequests, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.store.fetchPullRequests(this.props.projectName, this.props.teamName, this.props.repositoryName);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            if (this.store.loadingState === _searchListStore.LoadingState.Loaded && this.selectedPullRequest) {
+                return _react3.default.createElement(_reactNative.View, {
+                    __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 27
+                    }
+                });
+            } else {
+                return _react3.default.createElement(_searchList.SearchList, { store: this.store, hasSearch: true, renderRow: function renderRow(rowData) {
+                        return _react3.default.createElement(_listRow.ListRow, { title: rowData, onRowPressed: function onRowPressed(pullRequestName) {
+                                return _this2.onPullRequestSelected(pullRequestName);
                             }, __source: {
                                 fileName: _jsxFileName,
                                 lineNumber: 30
@@ -65702,22 +65843,22 @@ var Repositories = _wrapComponent("Repositories")(function (_Component) {
             }
         }
     }, {
-        key: "onRepositorySelected",
-        value: function onRepositorySelected(repositoryName) {
-            this.selectedRepositoryName = repositoryName;
+        key: "onPullRequestSelected",
+        value: function onPullRequestSelected(pullRequestName) {
+            this.selectedPullRequest = pullRequestName;
         }
     }]);
 
-    return Repositories;
+    return PullRequests;
 }(_react2.Component));
-__decorate([_mobx.observable], Repositories.prototype, "selectedRepositoryName", void 0);
-exports.Repositories = Repositories = __decorate([_native.observer], Repositories);
-exports.Repositories = Repositories;
-}, 631, null, "vsts-mobile-pr/app/components/repositories.js");
-__d(/* vsts-mobile-pr/app/stores/repositoriesStore.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+__decorate([_mobx.observable], PullRequests.prototype, "selectedPullRequest", void 0);
+exports.PullRequests = PullRequests = __decorate([_native.observer], PullRequests);
+exports.PullRequests = PullRequests;
+}, 633, null, "vsts-mobile-pr/app/components/pullRequests.js");
+__d(/* vsts-mobile-pr/app/stores/pullRequestsStore.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.RepositoriesStore = undefined;
+exports.PullRequestsStore = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -65744,27 +65885,28 @@ var __decorate = this && this.__decorate || function (decorators, target, key, d
     }return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var RepositoriesStore = exports.RepositoriesStore = function (_SearchListStore) {
-    _inherits(RepositoriesStore, _SearchListStore);
+var PullRequestsStore = exports.PullRequestsStore = function (_SearchListStore) {
+    _inherits(PullRequestsStore, _SearchListStore);
 
-    function RepositoriesStore() {
-        _classCallCheck(this, RepositoriesStore);
+    function PullRequestsStore() {
+        _classCallCheck(this, PullRequestsStore);
 
-        return _possibleConstructorReturn(this, (RepositoriesStore.__proto__ || Object.getPrototypeOf(RepositoriesStore)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (PullRequestsStore.__proto__ || Object.getPrototypeOf(PullRequestsStore)).apply(this, arguments));
     }
 
-    _createClass(RepositoriesStore, [{
-        key: "fetchRepositories",
-        value: function fetchRepositories(projectName, teamName) {
-            return regeneratorRuntime.async(function fetchRepositories$(_context) {
+    _createClass(PullRequestsStore, [{
+        key: "fetchPullRequests",
+        value: function fetchPullRequests(projectName, teamName, repositoryName) {
+            return regeneratorRuntime.async(function fetchPullRequests$(_context) {
                 while (1) {
                     switch (_context.prev = _context.next) {
                         case 0:
                             this._projectName = projectName;
                             this._teamName = teamName;
-                            return _context.abrupt("return", _get(RepositoriesStore.prototype.__proto__ || Object.getPrototypeOf(RepositoriesStore.prototype), "fetchData", this).call(this));
+                            this._repositoryName = repositoryName;
+                            return _context.abrupt("return", _get(PullRequestsStore.prototype.__proto__ || Object.getPrototypeOf(PullRequestsStore.prototype), "fetchData", this).call(this));
 
-                        case 3:
+                        case 4:
                         case "end":
                             return _context.stop();
                     }
@@ -65783,7 +65925,22 @@ var RepositoriesStore = exports.RepositoriesStore = function (_SearchListStore) 
     }, {
         key: "transformData",
         value: function transformData(data) {
-            return data.value;
+            for (var _iterator = data.value, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[typeof Symbol === "function" ? Symbol.iterator : "@@iterator"]();;) {
+                var _ref;
+
+                if (_isArray) {
+                    if (_i >= _iterator.length) break;
+                    _ref = _iterator[_i++];
+                } else {
+                    _i = _iterator.next();
+                    if (_i.done) break;
+                    _ref = _i.value;
+                }
+
+                var pr = _ref;
+
+                pr.name = pr.title;
+            }
         }
     }, {
         key: "getPath",
@@ -65792,17 +65949,18 @@ var RepositoriesStore = exports.RepositoriesStore = function (_SearchListStore) 
             url += "https://msmobilecenter.visualstudio.com/DefaultCollection";
             url += "/" + this._projectName;
             url += this._teamName ? "/" + this._teamName : "";
-            url += "/_apis/git/repositories";
+            url += "/_apis/git/repositories/" + this._repositoryName;
+            url += "/pullRequests";
             url += "?api-version=1.0";
             return url;
         }
     }]);
 
-    return RepositoriesStore;
+    return PullRequestsStore;
 }(_searchListStore.SearchListStore);
 
-__decorate([_mobx.action], RepositoriesStore.prototype, "fetchRepositories", null);
-}, 632, null, "vsts-mobile-pr/app/stores/repositoriesStore.js");
+__decorate([_mobx.action], PullRequestsStore.prototype, "fetchPullRequests", null);
+}, 634, null, "vsts-mobile-pr/app/stores/pullRequestsStore.js");
 __d(/* vsts-mobile-pr/app/components/listRow.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -65923,6 +66081,95 @@ exports.default = _reactNative.StyleSheet.create({
     }
 });
 }, 629, null, "vsts-mobile-pr/app/styles/listRowStyles.js");
+__d(/* vsts-mobile-pr/app/stores/repositoriesStore.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.RepositoriesStore = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _mobx = require(12    ); // 12 = mobx
+
+var _lodash = require(624     ); // 624 = lodash
+
+var _searchListStore = require(623                ); // 623 = ./searchListStore
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var RepositoriesStore = exports.RepositoriesStore = function (_SearchListStore) {
+    _inherits(RepositoriesStore, _SearchListStore);
+
+    function RepositoriesStore() {
+        _classCallCheck(this, RepositoriesStore);
+
+        return _possibleConstructorReturn(this, (RepositoriesStore.__proto__ || Object.getPrototypeOf(RepositoriesStore)).apply(this, arguments));
+    }
+
+    _createClass(RepositoriesStore, [{
+        key: "fetchRepositories",
+        value: function fetchRepositories(projectName, teamName) {
+            return regeneratorRuntime.async(function fetchRepositories$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            this._projectName = projectName;
+                            this._teamName = teamName;
+                            return _context.abrupt("return", _get(RepositoriesStore.prototype.__proto__ || Object.getPrototypeOf(RepositoriesStore.prototype), "fetchData", this).call(this));
+
+                        case 3:
+                        case "end":
+                            return _context.stop();
+                    }
+                }
+            }, null, this);
+        }
+    }, {
+        key: "filterItems",
+        value: function filterItems() {
+            var _this2 = this;
+
+            return (0, _lodash.filter)(this.items, function (item) {
+                return (0, _lodash.startsWith)(item.name, _this2.filterTerm);
+            });
+        }
+    }, {
+        key: "transformData",
+        value: function transformData(data) {
+            return data.value;
+        }
+    }, {
+        key: "getPath",
+        value: function getPath() {
+            var url = "";
+            url += "https://msmobilecenter.visualstudio.com/DefaultCollection";
+            url += "/" + this._projectName;
+            url += this._teamName ? "/" + this._teamName : "";
+            url += "/_apis/git/repositories";
+            url += "?api-version=1.0";
+            return url;
+        }
+    }]);
+
+    return RepositoriesStore;
+}(_searchListStore.SearchListStore);
+
+__decorate([_mobx.action], RepositoriesStore.prototype, "fetchRepositories", null);
+}, 632, null, "vsts-mobile-pr/app/stores/repositoriesStore.js");
 __d(/* vsts-mobile-pr/app/stores/projectsStore.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
     value: true
 });

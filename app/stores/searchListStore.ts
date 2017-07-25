@@ -35,7 +35,7 @@ export abstract class SearchListStore {
       });
       const json = await response.json();
       this.items = this.transformData(json);
-      this.datasource = this.datasource.cloneWithRows(map(this.items, 'name'));
+      this.datasource = this.datasource.cloneWithRows(map(this.items, this.visibleValue()));
       this.loadingState = LoadingState.Loaded;
     } catch (err) {
       this.loadingState = LoadingState.Failed;
@@ -58,6 +58,10 @@ export abstract class SearchListStore {
     this.filterTerm = filterTerm;
     const filteredItems = this.filterItems()
     this.datasource = this.datasource.cloneWithRows(map(filteredItems, 'name'));
+  }
+
+  visibleValue() {
+    return "name";
   }
 
   abstract getPath(): string;

@@ -43,14 +43,14 @@ export class Teams extends Component<TeamsProps, {}> {
                     store={this.store}
                     hasSearch={true}
                     renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(teamName) => this.onTeamSelected(teamName)} />}
-                /><Button title="Don't Select Team" onPress={() => { this.skipped = true }} /></View>);
+                /><Button title="Don't Select Team" onPress={() => this.onTeamSelected()} /></View>);
         }
     }
 
-    private onTeamSelected(teamName: string) {
+    private onTeamSelected(teamName?: string) {
         const nextRoute = {
             component: Repositories,
-            title: this._projectName,
+            title: "Repositories",
             passProps: { projectName: this._projectName, teamName: this.selectedTeamName }
         };
         (this.props as any).navigator.push(nextRoute);

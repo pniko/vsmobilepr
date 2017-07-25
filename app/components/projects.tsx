@@ -34,7 +34,7 @@ export default class Projects extends Component {
   private onProjectSelected(projectName: string) {
     const nextRoute = {
       component: Teams,
-      title: projectName,
+      title: "Teams",
       passProps: { projectName: projectName }
     };
     (this.props as any).navigator.push(nextRoute);

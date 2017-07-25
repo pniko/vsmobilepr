@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { SearchList } from './searchList';
+import { PullRequests } from './pullRequests';
 import { LoadingState } from '../stores/searchListStore';
 import { RepositoriesStore } from '../stores/repositoriesStore';
 import { ListRow } from './listRow';
@@ -16,31 +17,36 @@ class RepositoriesProps {
 @observer
 export class Repositories extends Component<RepositoriesProps, {}> {
 
-  private store: RepositoriesStore;
-  @observable selectedRepositoryName: string;
+    private store: RepositoriesStore;
+    @observable selectedRepositoryName: string;
 
-  constructor() {
-    super();
-    this.store = new RepositoriesStore();
-  }
-
-  componentDidMount() {
-    this.store.fetchRepositories(this.props.projectName, this.props.teamName);
-  }
-
-  render() {
-    if (this.store.loadingState === LoadingState.Loaded && this.selectedRepositoryName) {
-      return (<View />)
-    } else {
-      return (<SearchList
-        store={this.store}
-        hasSearch={true}
-        renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(repositoryName) => this.onRepositorySelected(repositoryName)} />}
-      />);
+    constructor() {
+        super();
+        this.store = new RepositoriesStore();
     }
-  }
 
-  private onRepositorySelected(repositoryName: string) {
-    this.selectedRepositoryName = repositoryName;
-  }
+    componentDidMount() {
+        this.store.fetchRepositories(this.props.projectName, this.props.teamName);
+    }
+
+    render() {
+        if (this.store.loadingState === LoadingState.Loaded && this.selectedRepositoryName) {
+            return (<View />)
+        } else {
+            return (<SearchList
+                store={this.store}
+                hasSearch={true}
+                renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(repositoryName) => this.onRepositorySelected(repositoryName)} />}
+            />);
+        }
+    }
+
+    private onRepositorySelected(repositoryName: string) {
+        const nextRoute = {
+            component: PullRequests,
+            title: "Pull Requests",
+            passProps: { projectName: this.props.projectName, teamName: this.props.teamName, repositoryName: repositoryName }
+        };
+        (this.props as any).navigator.push(nextRoute);
+    }
 }
