@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Modal, NavigatorIOS, Text, TextInput, TouchableHighlight, View } from 'react-native';
-import styles from '../styles/createAccountStyles';
+import { Alert, Modal, NavigatorIOS, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { IAccount } from '../models/IAccount';
+import { isEmpty } from 'lodash';
+import styles from '../styles/createAccountStyles';
 
 class CreateAccountProps {
   modalVisible: boolean;
@@ -18,14 +19,11 @@ export class CreateAccount extends Component<CreateAccountProps, CreateAccountSt
 
   constructor(props) {
     super(props);
-    this.state = {
-      accountName: '',
-      accessToken: ''
-    };
+    this.resetState();
   }
 
   render() {
-    const { modalVisible, onAccountSaved, onAccountCanceled } = this.props;
+    const { modalVisible } = this.props;
     return (
       <View>
         <Modal
@@ -39,22 +37,11 @@ export class CreateAccount extends Component<CreateAccountProps, CreateAccountSt
               component: Empty,
               title: 'Create Account',
               rightButtonTitle: 'Save',
-              onRightButtonPress: () => {
-                if (onAccountSaved) {
-                  onAccountSaved({
-                    name: this.state.accountName,
-                    token: this.state.accessToken
-                  })
-                }
-              },
+              onRightButtonPress: this.onRightButtonPress.bind(this),
               leftButtonTitle: 'Cancel',
-              onLeftButtonPress: () => {
-                if (onAccountSaved) {
-                  onAccountCanceled()
-                }
-              }
+              onLeftButtonPress: this.onLeftButtonPress.bind(this)
             }}
-            style={{height: 65}}
+            style={{ height: 65 }}
           />
           <View style={styles.container}>
             <View style={styles.inputGroupContainer}>
@@ -70,13 +57,50 @@ export class CreateAccount extends Component<CreateAccountProps, CreateAccountSt
       </View>
     );
   }
+
+  onRightButtonPress(): void {
+    if (isEmpty(this.state.accessToken) || isEmpty(this.state.accountName)) {
+      Alert.alert(
+        'Creating account failed',
+        'Please fill in a account name and access token.',
+        [
+          { text: 'OK' },
+        ],
+        { cancelable: false }
+      )
+    } else {
+      const { onAccountSaved } = this.props;
+      if (onAccountSaved) {
+        onAccountSaved({
+          name: this.state.accountName,
+          token: this.state.accessToken
+        })
+      }
+      this.resetState();
+    }
+  }
+
+  onLeftButtonPress(): void {
+    const { onAccountCanceled } = this.props;
+    if (onAccountCanceled) {
+      onAccountCanceled()
+      this.resetState();
+    }
+  }
+
+  resetState(): void {
+    this.state = {
+      accountName: '',
+      accessToken: ''
+    };
+  }
 }
 
 class Empty extends Component {
 
   render() {
     return (
-      <View/>
+      <View />
     );
   }
 }
