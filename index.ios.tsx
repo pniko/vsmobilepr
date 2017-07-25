@@ -19,13 +19,21 @@ import {
 
 @observer export default class VsMobilePR extends Component {
 
-  @observable showLogin = true;
+  private pushedComponent: any;
 
   render() {
       return <NavigatorIOS
         initialRoute={{
           component: Accounts,
           title: 'Accounts',
+          rightButtonTitle: 'Add',
+          passProps: {
+            ref: (component) => {this.pushedComponent = component},
+          },
+          onRightButtonPress: () => {
+           // call func
+          this.pushedComponent && this.pushedComponent.onRightButtonPress();
+          }
         }}
         style={{ flex: 1 }}
       />
