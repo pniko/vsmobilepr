@@ -45,7 +45,8 @@ export abstract class SearchListStore {
 
   private async getHeaders(): Promise<any> {
     var token = await TokenManager.readToken();
-    // token = `:${token}`;
+    token = btoa(`:${token}`);
+
     return {
       Authorization: `Basic ${token}`,
       Accept: 'application/json'
