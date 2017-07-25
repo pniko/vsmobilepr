@@ -5,8 +5,7 @@
  */
 import { observable } from 'mobx';
 import { observer } from 'mobx-react/native';
-import Login from './app/components/login';
-import Projects from './app/components/projects';
+import Accounts from './app/components/accounts';
 import Teams from './app/components/teams';
 import React, { Component } from 'react';
 import {
@@ -23,17 +22,13 @@ import {
   @observable showLogin = true;
 
   render() {
-    if (this.showLogin) {
-      return <Login onLoginClicked={() => { this.showLogin = false; }} />
-    } else {
       return <NavigatorIOS
         initialRoute={{
-          component: Projects,
-          title: 'Projects',
+          component: Accounts,
+          title: 'Accounts',
         }}
         style={{ flex: 1 }}
       />
-    }
   }
 }
 
