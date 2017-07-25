@@ -30,8 +30,8 @@ export default class Accounts extends Component<{}, AccountState> {
   render() {
     const emptyText = 'Tap the "Add" button in order to create a new account.';
     return (
-      <View>
-        <View style={styles.container}>
+      <View style={styles.container}>
+        <View>
           <Text style={styles.emptyText}>{emptyText}</Text>
         </View>
         <CreateAccount modalVisible={this.state.modalVisible} onAccountSaved={this.onAccountSaved.bind(this)} onAccountCanceled={this.onAccountCanceled.bind(this)} />
