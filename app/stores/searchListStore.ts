@@ -14,7 +14,6 @@ export enum LoadingState {
 
 export abstract class SearchListStore extends ListStore{
 
-  @observable datasource: any;
   @observable items: any[];
   @observable loadingState: LoadingState;
   @observable filterTerm: string;
@@ -22,8 +21,7 @@ export abstract class SearchListStore extends ListStore{
   @action
   setFilterTerm(filterTerm: string): void {
     this.filterTerm = filterTerm;
-    const filteredItems = this.filterItems()
-    super.datasource = super.datasource.cloneWithRows(filteredItems);
+    super.filteredItems = this.filterItems();
   }
 
   abstract filterItems(): any[];

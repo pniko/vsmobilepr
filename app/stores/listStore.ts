@@ -15,15 +15,12 @@ export enum LoadingState {
 
 export abstract class ListStore {
   items: any[];
-  @observable datasource: any;
+  @observable filteredItems: any[];
   @observable loadingState: LoadingState;
 
   constructor() {
     this.loadingState = LoadingState.Loaded;
-    this.datasource = new ListView.DataSource({ 
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-    this.datasource = this.datasource.cloneWithRows([]);
+    this.filteredItems = [];
   }
 
   @action
@@ -36,7 +33,7 @@ export abstract class ListStore {
       });
       const json = await response.json();
       this.items = this.transformData(json);
-      this.datasource = this.datasource.cloneWithRows(this.items);
+      this.filteredItems = this.items;
       this.loadingState = LoadingState.Loaded;
     } catch (err) {
       this.loadingState = LoadingState.Failed;

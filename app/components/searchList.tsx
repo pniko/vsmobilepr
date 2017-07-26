@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
-import { ActivityIndicator, ListView, TextInput, View, Text, Button } from 'react-native';
+import { ActivityIndicator, FlatList, TextInput, View, Text, Button } from 'react-native';
 import { SearchListStore, LoadingState } from '../stores/searchListStore';
+import { ListRow } from './listRow';
 import styles from '../styles/searchListStyles';
 
 class SearchListProps {
@@ -40,10 +41,11 @@ export class SearchList extends Component<SearchListProps, {}> {
             onChange={(text) => store.setFilterTerm(text.nativeEvent.text)}
             placeholder='Search' />
         ) : null}
-        <ListView
+        <FlatList
+          keyExtractor={item => item.name}
           style={styles.list}
-          dataSource={store.datasource}
-          renderRow={renderRow}
+          data={store.filteredItems}
+          renderItem={renderRow}
         />
       </View>
     );
