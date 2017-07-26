@@ -13,7 +13,7 @@ class AccountState {
   modalVisible: boolean;
 }
 
-export default class Accounts extends Component<{}, AccountState> {
+export default class Accounts extends Component<any, AccountState> {
 
   constructor(props) {
     super(props);
