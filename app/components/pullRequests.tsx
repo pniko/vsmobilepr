@@ -39,6 +39,12 @@ export class PullRequests extends Component<PullRequestsProps, {}> {
     }
 
     private onPullRequestSelected(pullRequestName: string, rowData) {
-        this.selectedPullRequest = pullRequestName;
+        const { projectName, teamName, repositoryName } = this.props;
+        const nextRoute = {
+            component: PullRequest,
+            title: "Pull Request",
+            passProps: { projectName: projectName, teamName: teamName, repositoryName: repositoryName, pullRequest: rowData.item }
+        };
+        (this.props as any).navigator.push(nextRoute);
     }
 }
