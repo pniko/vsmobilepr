@@ -53,7 +53,7 @@ export class SearchList extends Component<SearchListProps, {}> {
     const { store } = this.props;
     return (
       <View style={styles.container}>
-        <Text>No items available...</Text>
+        <Text style={styles.emptyText}>No items available...</Text>
         <Button
           onPress={this.onReloadButtonClicked.bind(this)}
           title='Reload'

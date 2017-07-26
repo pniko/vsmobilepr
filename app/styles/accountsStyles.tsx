@@ -15,7 +15,9 @@ export default StyleSheet.create({
   },
   listcontainer: {
     marginTop: 65,
-    flex: 1
+    flex: 1,
+    flexDirection: 'column',
+    alignSelf: 'stretch'
   },
   list: {
     flex: 1

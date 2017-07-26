@@ -26,7 +26,7 @@ export default class Projects extends Component<any, {}> {
   render() {
       return (<SearchList
         store={this.store}
-        hasSearch={true}
+        hasSearch={false}
         renderRow={(rowData) => <ListRow title={rowData.name} onRowPressed={(projectName) => this.onProjectSelected(projectName)} />}
       />);
   }
