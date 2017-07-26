@@ -3,7 +3,9 @@ import {
 } from 'react-native';
 import { observable, computed, action } from 'mobx'
 import { filter, map } from 'lodash';
-import TokenManager from '../helpers/tokenManager';
+import AccountManager from '../helpers/accountManager';
+
+var base64 = require('base-64');
 
 export enum LoadingState {
   Loading = 1,
@@ -28,9 +30,8 @@ export abstract class ListStore {
   async fetchData(): Promise<void> {
     try {
       this.loadingState = LoadingState.Loading;
-      const headers = await this.getHeaders()
       const response = await fetch(this.getPath(), {
-        headers: headers,
+        headers: this.getHeaders(),
         method: 'GET'
       });
       const json = await response.json();
@@ -43,12 +44,12 @@ export abstract class ListStore {
     }
   }
 
-  private async getHeaders(): Promise<any> {
-    var token = await TokenManager.readToken();
-    // token = btoa(`:${token}`);
+  private getHeaders(): any {
+    var accountToken = AccountManager.getCurrentAccount().token;
+    var base64Token = base64.encode(`:${accountToken}`);
 
     return {
-      Authorization: `Basic ${token}`,
+      Authorization: `Basic ${base64Token}`,
       Accept: 'application/json'
     }
   }

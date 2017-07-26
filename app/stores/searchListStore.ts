@@ -6,24 +6,18 @@ import { filter, map } from 'lodash';
 import { ListStore } from './listStore';
 import AccountManager from '../helpers/accountManager';
 
-var base64 = require('base-64');
-
 export enum LoadingState {
   Loading = 1,
   Failed,
   Loaded,
 }
 
-export abstract class SearchListStore {
+export abstract class SearchListStore extends ListStore{
 
   @observable datasource: any;
   @observable items: any[];
   @observable loadingState: LoadingState;
   @observable filterTerm: string;
-
-  constructor() {
-    super()
-  }
 
   @action
   setFilterTerm(filterTerm: string): void {
