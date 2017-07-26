@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
 import { ActivityIndicator, ListView, TextInput, View, Text, Button } from 'react-native';
 import TokenManager from '../helpers/tokenManager';
-import { SearchListStore, LoadingState } from '../stores/searchListStore';
+import { SearchListStore } from '../stores/searchListStore';
+import { LoadingState } from '../stores/listStore';
 import styles from '../styles/searchListStyles';
 
 class SearchListProps {

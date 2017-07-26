@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { SearchList } from './searchList';
 import { Teams } from './teams';
-import { LoadingState } from '../stores/searchListStore';
+import { LoadingState } from '../stores/listStore';
 import { ProjectsStore } from '../stores/projectsStore';
 import { ListRow } from './listRow';
 import { observer } from 'mobx-react/native';

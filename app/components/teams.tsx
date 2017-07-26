@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
 import { SearchList } from './searchList';
-import { LoadingState } from '../stores/searchListStore';
+import { LoadingState } from '../stores/listStore';
 import { TeamsStore } from '../stores/teamsStore';
 import { Repositories } from './repositories';
 import { ListRow } from './listRow';

@@ -58366,7 +58366,7 @@ var _native = require(13                 ); // 13 = mobx-react/native
 
 var _reactNative = require(28            ); // 28 = react-native
 
-var _searchListStore = require(623                        ); // 623 = ../stores/searchListStore
+var _listStore = require(635                  ); // 635 = ../stores/listStore
 
 var _searchListStyles = require(625                         ); // 625 = ../styles/searchListStyles
 
@@ -58427,14 +58427,14 @@ var SearchList = _wrapComponent("SearchList")(function (_Component) {
             var store = this.props.store;
 
             switch (store.loadingState) {
-                case _searchListStore.LoadingState.Loaded:
+                case _listStore.LoadingState.Loaded:
                     if (store.items && store.items.length > 0) {
                         return this.renderList();
                     }
                     return this.renderEmptyPage();
-                case _searchListStore.LoadingState.Loading:
+                case _listStore.LoadingState.Loading:
                     return this.renderLoadingPage();
-                case _searchListStore.LoadingState.Failed:
+                case _listStore.LoadingState.Failed:
                     return this.renderEmptyPage();
             }
         }
@@ -58507,7 +58507,7 @@ var SearchList = _wrapComponent("SearchList")(function (_Component) {
                         lineNumber: 45
                     }
                 },
-                _react3.default.createElement(_reactNative.ActivityIndicator, { animating: store.loadingState === _searchListStore.LoadingState.Loading, __source: {
+                _react3.default.createElement(_reactNative.ActivityIndicator, { animating: store.loadingState === _listStore.LoadingState.Loading, __source: {
                         fileName: _jsxFileName,
                         lineNumber: 46
                     }
@@ -58526,10 +58526,10 @@ var SearchList = _wrapComponent("SearchList")(function (_Component) {
 exports.SearchList = SearchList = __decorate([_native.observer], SearchList);
 exports.SearchList = SearchList;
 }, 622, null, "vsts-mobile-pr/app/components/searchList.js");
-__d(/* vsts-mobile-pr/app/stores/searchListStore.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+__d(/* vsts-mobile-pr/app/stores/listStore.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.SearchListStore = exports.LoadingState = undefined;
+exports.ListStore = exports.LoadingState = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -58560,9 +58560,9 @@ var LoadingState = exports.LoadingState = undefined;
     LoadingState[LoadingState["Loaded"] = 3] = "Loaded";
 })(LoadingState || (exports.LoadingState = LoadingState = {}));
 
-var SearchListStore = exports.SearchListStore = function () {
-    function SearchListStore() {
-        _classCallCheck(this, SearchListStore);
+var ListStore = exports.ListStore = function () {
+    function ListStore() {
+        _classCallCheck(this, ListStore);
 
         this.loadingState = LoadingState.Loaded;
         this.datasource = new _reactNative.ListView.DataSource({
@@ -58573,7 +58573,7 @@ var SearchListStore = exports.SearchListStore = function () {
         this.datasource = this.datasource.cloneWithRows([]);
     }
 
-    _createClass(SearchListStore, [{
+    _createClass(ListStore, [{
         key: "fetchData",
         value: function fetchData() {
             var headers, response, json;
@@ -58648,24 +58648,15 @@ var SearchListStore = exports.SearchListStore = function () {
                 }
             }, null, this);
         }
-    }, {
-        key: "setFilterTerm",
-        value: function setFilterTerm(filterTerm) {
-            this.filterTerm = filterTerm.toLowerCase();
-            var filteredItems = this.filterItems();
-            this.datasource = this.datasource.cloneWithRows(filteredItems);
-        }
     }]);
 
-    return SearchListStore;
+    return ListStore;
 }();
 
-__decorate([_mobx.observable], SearchListStore.prototype, "datasource", void 0);
-__decorate([_mobx.observable], SearchListStore.prototype, "loadingState", void 0);
-__decorate([_mobx.observable], SearchListStore.prototype, "filterTerm", void 0);
-__decorate([_mobx.action], SearchListStore.prototype, "fetchData", null);
-__decorate([_mobx.action], SearchListStore.prototype, "setFilterTerm", null);
-}, 623, null, "vsts-mobile-pr/app/stores/searchListStore.js");
+__decorate([_mobx.observable], ListStore.prototype, "datasource", void 0);
+__decorate([_mobx.observable], ListStore.prototype, "loadingState", void 0);
+__decorate([_mobx.action], ListStore.prototype, "fetchData", null);
+}, 635, null, "vsts-mobile-pr/app/stores/listStore.js");
 __d(/* vsts-mobile-pr/app/styles/searchListStyles.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -58723,7 +58714,7 @@ var _reactNative = require(28            ); // 28 = react-native
 
 var _searchList = require(622           ); // 622 = ./searchList
 
-var _searchListStore = require(623                        ); // 623 = ../stores/searchListStore
+var _listStore = require(635                  ); // 635 = ../stores/listStore
 
 var _teamsStore = require(627                   ); // 627 = ../stores/teamsStore
 
@@ -58809,7 +58800,7 @@ var Teams = _wrapComponent("Teams")(function (_Component) {
                     }
                 });
             }
-            if (this.store.loadingState === _searchListStore.LoadingState.Loaded && this.selectedTeamName) {
+            if (this.store.loadingState === _listStore.LoadingState.Loaded && this.selectedTeamName) {
                 return _react3.default.createElement(_repositories.Repositories, { projectName: this._projectName, teamName: this.selectedTeamName, __source: {
                         fileName: _jsxFileName,
                         lineNumber: 33
@@ -65585,6 +65576,60 @@ __d(/* lodash/lodash.js */function(global, require, module, exports) {/**
     }
 }).call(this);
 }, 624, null, "lodash/lodash.js");
+__d(/* vsts-mobile-pr/app/stores/searchListStore.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.SearchListStore = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _set = function set(object, property, value, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent !== null) { set(parent, property, value, receiver); } } else if ("value" in desc && desc.writable) { desc.value = value; } else { var setter = desc.set; if (setter !== undefined) { setter.call(receiver, value); } } return value; };
+
+var _mobx = require(12    ); // 12 = mobx
+
+var _listStore = require(635          ); // 635 = ./listStore
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var SearchListStore = exports.SearchListStore = function (_ListStore) {
+    _inherits(SearchListStore, _ListStore);
+
+    function SearchListStore() {
+        _classCallCheck(this, SearchListStore);
+
+        return _possibleConstructorReturn(this, (SearchListStore.__proto__ || Object.getPrototypeOf(SearchListStore)).call(this));
+    }
+
+    _createClass(SearchListStore, [{
+        key: "setFilterTerm",
+        value: function setFilterTerm(filterTerm) {
+            this.filterTerm = filterTerm;
+            var filteredItems = this.filterItems();
+            _set(SearchListStore.prototype.__proto__ || Object.getPrototypeOf(SearchListStore.prototype), "datasource", _get(SearchListStore.prototype.__proto__ || Object.getPrototypeOf(SearchListStore.prototype), "datasource", this).cloneWithRows(filteredItems), this);
+        }
+    }]);
+
+    return SearchListStore;
+}(_listStore.ListStore);
+
+__decorate([_mobx.observable], SearchListStore.prototype, "filterTerm", void 0);
+__decorate([_mobx.action], SearchListStore.prototype, "setFilterTerm", null);
+}, 623, null, "vsts-mobile-pr/app/stores/searchListStore.js");
 __d(/* vsts-mobile-pr/app/components/repositories.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -65608,7 +65653,7 @@ var _searchList = require(622           ); // 622 = ./searchList
 
 var _pullRequests = require(633             ); // 633 = ./pullRequests
 
-var _searchListStore = require(623                        ); // 623 = ../stores/searchListStore
+var _listStore = require(635                  ); // 635 = ../stores/listStore
 
 var _repositoriesStore = require(632                          ); // 632 = ../stores/repositoriesStore
 
@@ -65680,7 +65725,7 @@ var Repositories = _wrapComponent("Repositories")(function (_Component) {
         value: function render() {
             var _this2 = this;
 
-            if (this.store.loadingState === _searchListStore.LoadingState.Loaded && this.selectedRepositoryName) {
+            if (this.store.loadingState === _listStore.LoadingState.Loaded && this.selectedRepositoryName) {
                 return _react3.default.createElement(_reactNative.View, {
                     __source: {
                         fileName: _jsxFileName,
@@ -65742,7 +65787,7 @@ var _reactNative = require(28            ); // 28 = react-native
 
 var _searchList = require(622           ); // 622 = ./searchList
 
-var _searchListStore = require(623                        ); // 623 = ../stores/searchListStore
+var _listStore = require(635                  ); // 635 = ../stores/listStore
 
 var _pullRequestsStore = require(634                          ); // 634 = ../stores/pullRequestsStore
 
@@ -65814,7 +65859,7 @@ var PullRequests = _wrapComponent("PullRequests")(function (_Component) {
         value: function render() {
             var _this2 = this;
 
-            if (this.store.loadingState === _searchListStore.LoadingState.Loaded && this.selectedPullRequest) {
+            if (this.store.loadingState === _listStore.LoadingState.Loaded && this.selectedPullRequest) {
                 return _react3.default.createElement(_reactNative.View, {
                     __source: {
                         fileName: _jsxFileName,
@@ -65920,7 +65965,7 @@ var PullRequestsStore = exports.PullRequestsStore = function (_SearchListStore) 
         key: "transformData",
         value: function transformData(data) {
             return (0, _lodash.map)(data.value, function (item) {
-                return { id: item.pullRequestId, name: item.title };
+                return { id: item.pullRequestId, name: item.title, lastCommitId: item.lastMergeCommit.commitId };
             });
         }
     }, {
