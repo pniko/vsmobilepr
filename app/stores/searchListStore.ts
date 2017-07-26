@@ -21,7 +21,7 @@ export abstract class SearchListStore extends ListStore{
   @action
   setFilterTerm(filterTerm: string): void {
     this.filterTerm = filterTerm;
-    super.filteredItems = this.filterItems();
+    this.filteredItems = this.filterItems();
   }
 
   abstract filterItems(): any[];
