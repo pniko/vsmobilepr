@@ -3,11 +3,22 @@ import {
 } from 'react-native';
 import { observable, computed, action } from 'mobx'
 import { filter, map } from 'lodash';
-import TokenManager from '../helpers/tokenManager';
 import { ListStore } from './listStore';
 import AccountManager from '../helpers/accountManager';
 
-export abstract class SearchListStore extends ListStore {
+var base64 = require('base-64');
+
+export enum LoadingState {
+  Loading = 1,
+  Failed,
+  Loaded,
+}
+
+export abstract class SearchListStore {
+
+  @observable datasource: any;
+  @observable items: any[];
+  @observable loadingState: LoadingState;
   @observable filterTerm: string;
 
   constructor() {
