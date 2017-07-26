@@ -8,11 +8,12 @@ import { SearchListStore } from './searchListStore';
 export class ProjectsStore extends SearchListStore {
 
   filterItems(): any[] {
-    return filter(this.items, (item) => { return startsWith(item.name, this.filterTerm); });
+    const filterString = this.filterTerm ? this.filterTerm.toLowerCase() : "";
+    return filter(this.items, (item) => { return startsWith(item.name.toLowerCase(), filterString); });
   }
 
   transformData(data: any): any[] {
-    const list = map(data.value, (item) => { return {id: item.id, name: item.name}});
+    const list = map(data.value, (item) => { return { id: item.id, name: item.name } });
     return list;
   }
 

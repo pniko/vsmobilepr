@@ -58537,8 +58537,6 @@ var _reactNative = require(28            ); // 28 = react-native
 
 var _mobx = require(12    ); // 12 = mobx
 
-var _lodash = require(624     ); // 624 = lodash
-
 var _tokenManager = require(405                      ); // 405 = ../helpers/tokenManager
 
 var _tokenManager2 = _interopRequireDefault(_tokenManager);
@@ -58653,9 +58651,9 @@ var SearchListStore = exports.SearchListStore = function () {
     }, {
         key: "setFilterTerm",
         value: function setFilterTerm(filterTerm) {
-            this.filterTerm = filterTerm;
+            this.filterTerm = filterTerm.toLowerCase();
             var filteredItems = this.filterItems();
-            this.datasource = this.datasource.cloneWithRows((0, _lodash.map)(filteredItems, 'name'));
+            this.datasource = this.datasource.cloneWithRows(filteredItems);
         }
     }]);
 
@@ -58668,6 +58666,289 @@ __decorate([_mobx.observable], SearchListStore.prototype, "filterTerm", void 0);
 __decorate([_mobx.action], SearchListStore.prototype, "fetchData", null);
 __decorate([_mobx.action], SearchListStore.prototype, "setFilterTerm", null);
 }, 623, null, "vsts-mobile-pr/app/stores/searchListStore.js");
+__d(/* vsts-mobile-pr/app/styles/searchListStyles.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _reactNative = require(28            ); // 28 = react-native
+
+exports.default = _reactNative.StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignSelf: 'stretch'
+    },
+    listcontainer: {
+        marginTop: 65,
+        flex: 1,
+        flexDirection: 'column'
+    },
+    list: {
+        flex: 1
+    },
+    staticRow: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        height: 40
+    },
+    searchBar: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        margin: 10,
+        padding: 10
+    }
+});
+}, 625, null, "vsts-mobile-pr/app/styles/searchListStyles.js");
+__d(/* vsts-mobile-pr/app/components/teams.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Teams = undefined;
+
+var _react2 = require(14     ); // 14 = react
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _index = require(407                                                    ); // 407 = ./../../node_modules/react-transform-hmr/lib/index.js
+
+var _index2 = _interopRequireDefault(_index);
+
+var _jsxFileName = "/Users/iziklisbon/Documents/vsmobilepr2/app/components/teams.js";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _reactNative = require(28            ); // 28 = react-native
+
+var _searchList = require(622           ); // 622 = ./searchList
+
+var _searchListStore = require(623                        ); // 623 = ../stores/searchListStore
+
+var _teamsStore = require(627                   ); // 627 = ../stores/teamsStore
+
+var _repositories = require(631             ); // 631 = ./repositories
+
+var _listRow = require(628        ); // 628 = ./listRow
+
+var _native = require(13                 ); // 13 = mobx-react/native
+
+var _mobx = require(12    ); // 12 = mobx
+
+var _searchListStyles = require(625                         ); // 625 = ../styles/searchListStyles
+
+var _searchListStyles2 = _interopRequireDefault(_searchListStyles);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var _components = {
+    Teams: {
+        displayName: "Teams"
+    }
+};
+
+var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
+    filename: "/Users/iziklisbon/Documents/vsmobilepr2/app/components/teams.js",
+    components: _components,
+    locals: [module],
+    imports: [_react3.default]
+});
+
+function _wrapComponent(id) {
+    return function (Component) {
+        return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
+    };
+}
+
+var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var TeamsProps = function TeamsProps() {
+    _classCallCheck(this, TeamsProps);
+};
+
+var Teams = _wrapComponent("Teams")(function (_Component) {
+    _inherits(Teams, _Component);
+
+    function Teams() {
+        _classCallCheck(this, Teams);
+
+        var _this = _possibleConstructorReturn(this, (Teams.__proto__ || Object.getPrototypeOf(Teams)).call(this));
+
+        _this.store = new _teamsStore.TeamsStore();
+        return _this;
+    }
+
+    _createClass(Teams, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this._projectName = this.props.projectName;
+            this.store.fetchTeams(this._projectName);
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var _this2 = this;
+
+            if (this.skipped) {
+                return _react3.default.createElement(_repositories.Repositories, { projectName: this._projectName, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 30
+                    }
+                });
+            }
+            if (this.store.loadingState === _searchListStore.LoadingState.Loaded && this.selectedTeamName) {
+                return _react3.default.createElement(_repositories.Repositories, { projectName: this._projectName, teamName: this.selectedTeamName, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 33
+                    }
+                });
+            } else {
+                return _react3.default.createElement(
+                    _reactNative.View,
+                    { style: _searchListStyles2.default.container, __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 36
+                        }
+                    },
+                    _react3.default.createElement(_searchList.SearchList, { store: this.store, hasSearch: true, renderRow: function renderRow(rowData) {
+                            return _react3.default.createElement(_listRow.ListRow, { title: rowData.name, onRowPressed: function onRowPressed(teamName) {
+                                    return _this2.onTeamSelected(teamName);
+                                }, __source: {
+                                    fileName: _jsxFileName,
+                                    lineNumber: 37
+                                }
+                            });
+                        }, __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 37
+                        }
+                    }),
+                    _react3.default.createElement(_reactNative.Button, { title: "Don't Select Team", onPress: function onPress() {
+                            return _this2.onTeamSelected();
+                        }, __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 37
+                        }
+                    })
+                );
+            }
+        }
+    }, {
+        key: "onTeamSelected",
+        value: function onTeamSelected(teamName) {
+            var nextRoute = {
+                component: _repositories.Repositories,
+                title: "Repositories",
+                passProps: { projectName: this._projectName, teamName: this.selectedTeamName }
+            };
+            this.props.navigator.push(nextRoute);
+        }
+    }]);
+
+    return Teams;
+}(_react2.Component));
+__decorate([_mobx.observable], Teams.prototype, "selectedTeamName", void 0);
+__decorate([_mobx.observable], Teams.prototype, "skipped", void 0);
+exports.Teams = Teams = __decorate([_native.observer], Teams);
+exports.Teams = Teams;
+}, 626, null, "vsts-mobile-pr/app/components/teams.js");
+__d(/* vsts-mobile-pr/app/stores/teamsStore.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.TeamsStore = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _mobx = require(12    ); // 12 = mobx
+
+var _lodash = require(624     ); // 624 = lodash
+
+var _searchListStore = require(623                ); // 623 = ./searchListStore
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var TeamsStore = exports.TeamsStore = function (_SearchListStore) {
+    _inherits(TeamsStore, _SearchListStore);
+
+    function TeamsStore() {
+        _classCallCheck(this, TeamsStore);
+
+        return _possibleConstructorReturn(this, (TeamsStore.__proto__ || Object.getPrototypeOf(TeamsStore)).apply(this, arguments));
+    }
+
+    _createClass(TeamsStore, [{
+        key: "fetchTeams",
+        value: function fetchTeams(projectName) {
+            return regeneratorRuntime.async(function fetchTeams$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            this._projectName = projectName;
+                            return _context.abrupt("return", _get(TeamsStore.prototype.__proto__ || Object.getPrototypeOf(TeamsStore.prototype), "fetchData", this).call(this));
+
+                        case 2:
+                        case "end":
+                            return _context.stop();
+                    }
+                }
+            }, null, this);
+        }
+    }, {
+        key: "filterItems",
+        value: function filterItems() {
+            var filterString = this.filterTerm ? this.filterTerm.toLowerCase() : "";
+            return (0, _lodash.filter)(this.items, function (item) {
+                return (0, _lodash.startsWith)(item.name.toLowerCase(), filterString);
+            });
+        }
+    }, {
+        key: "transformData",
+        value: function transformData(data) {
+            return (0, _lodash.map)(data.value, function (item) {
+                return { id: item.id, name: item.name };
+            });
+        }
+    }, {
+        key: "getPath",
+        value: function getPath() {
+            var base = "https://msmobilecenter.visualstudio.com/DefaultCollection/_apis/projects";
+            return base + "/" + this._projectName + "/teams?api-version=1.0";
+        }
+    }]);
+
+    return TeamsStore;
+}(_searchListStore.SearchListStore);
+
+__decorate([_mobx.action], TeamsStore.prototype, "fetchTeams", null);
+}, 627, null, "vsts-mobile-pr/app/stores/teamsStore.js");
 __d(/* lodash/lodash.js */function(global, require, module, exports) {/**
  * @license
  * Lodash <https://lodash.com/>
@@ -65304,290 +65585,6 @@ __d(/* lodash/lodash.js */function(global, require, module, exports) {/**
     }
 }).call(this);
 }, 624, null, "lodash/lodash.js");
-__d(/* vsts-mobile-pr/app/styles/searchListStyles.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _reactNative = require(28            ); // 28 = react-native
-
-exports.default = _reactNative.StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignSelf: 'stretch'
-    },
-    listcontainer: {
-        marginTop: 65,
-        flex: 1,
-        flexDirection: 'column'
-    },
-    list: {
-        flex: 1
-    },
-    staticRow: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        height: 40
-    },
-    searchBar: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        margin: 10,
-        padding: 10
-    }
-});
-}, 625, null, "vsts-mobile-pr/app/styles/searchListStyles.js");
-__d(/* vsts-mobile-pr/app/components/teams.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.Teams = undefined;
-
-var _react2 = require(14     ); // 14 = react
-
-var _react3 = _interopRequireDefault(_react2);
-
-var _index = require(407                                                    ); // 407 = ./../../node_modules/react-transform-hmr/lib/index.js
-
-var _index2 = _interopRequireDefault(_index);
-
-var _jsxFileName = "/Users/iziklisbon/Documents/vsmobilepr2/app/components/teams.js";
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _reactNative = require(28            ); // 28 = react-native
-
-var _searchList = require(622           ); // 622 = ./searchList
-
-var _searchListStore = require(623                        ); // 623 = ../stores/searchListStore
-
-var _teamsStore = require(627                   ); // 627 = ../stores/teamsStore
-
-var _repositories = require(631             ); // 631 = ./repositories
-
-var _listRow = require(628        ); // 628 = ./listRow
-
-var _native = require(13                 ); // 13 = mobx-react/native
-
-var _mobx = require(12    ); // 12 = mobx
-
-var _searchListStyles = require(625                         ); // 625 = ../styles/searchListStyles
-
-var _searchListStyles2 = _interopRequireDefault(_searchListStyles);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var _components = {
-    Teams: {
-        displayName: "Teams"
-    }
-};
-
-var _node_modulesReactTransformHmrLibIndexJs2 = (0, _index2.default)({
-    filename: "/Users/iziklisbon/Documents/vsmobilepr2/app/components/teams.js",
-    components: _components,
-    locals: [module],
-    imports: [_react3.default]
-});
-
-function _wrapComponent(id) {
-    return function (Component) {
-        return _node_modulesReactTransformHmrLibIndexJs2(Component, id);
-    };
-}
-
-var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var TeamsProps = function TeamsProps() {
-    _classCallCheck(this, TeamsProps);
-};
-
-var Teams = _wrapComponent("Teams")(function (_Component) {
-    _inherits(Teams, _Component);
-
-    function Teams() {
-        _classCallCheck(this, Teams);
-
-        var _this = _possibleConstructorReturn(this, (Teams.__proto__ || Object.getPrototypeOf(Teams)).call(this));
-
-        _this.store = new _teamsStore.TeamsStore();
-        return _this;
-    }
-
-    _createClass(Teams, [{
-        key: "componentDidMount",
-        value: function componentDidMount() {
-            this._projectName = this.props.projectName;
-            this.store.fetchTeams(this._projectName);
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _this2 = this;
-
-            if (this.skipped) {
-                return _react3.default.createElement(_repositories.Repositories, { projectName: this._projectName, __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 30
-                    }
-                });
-            }
-            if (this.store.loadingState === _searchListStore.LoadingState.Loaded && this.selectedTeamName) {
-                return _react3.default.createElement(_repositories.Repositories, { projectName: this._projectName, teamName: this.selectedTeamName, __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 33
-                    }
-                });
-            } else {
-                return _react3.default.createElement(
-                    _reactNative.View,
-                    { style: _searchListStyles2.default.container, __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 36
-                        }
-                    },
-                    _react3.default.createElement(_searchList.SearchList, { store: this.store, hasSearch: true, renderRow: function renderRow(rowData) {
-                            return _react3.default.createElement(_listRow.ListRow, { title: rowData.name, onRowPressed: function onRowPressed(teamName) {
-                                    return _this2.onTeamSelected(teamName);
-                                }, __source: {
-                                    fileName: _jsxFileName,
-                                    lineNumber: 37
-                                }
-                            });
-                        }, __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 37
-                        }
-                    }),
-                    _react3.default.createElement(_reactNative.Button, { title: "Don't Select Team", onPress: function onPress() {
-                            return _this2.onTeamSelected();
-                        }, __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 37
-                        }
-                    })
-                );
-            }
-        }
-    }, {
-        key: "onTeamSelected",
-        value: function onTeamSelected(teamName) {
-            var nextRoute = {
-                component: _repositories.Repositories,
-                title: "Repositories",
-                passProps: { projectName: this._projectName, teamName: this.selectedTeamName }
-            };
-            this.props.navigator.push(nextRoute);
-        }
-    }]);
-
-    return Teams;
-}(_react2.Component));
-__decorate([_mobx.observable], Teams.prototype, "selectedTeamName", void 0);
-__decorate([_mobx.observable], Teams.prototype, "skipped", void 0);
-exports.Teams = Teams = __decorate([_native.observer], Teams);
-exports.Teams = Teams;
-}, 626, null, "vsts-mobile-pr/app/components/teams.js");
-__d(/* vsts-mobile-pr/app/stores/teamsStore.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.TeamsStore = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-var _mobx = require(12    ); // 12 = mobx
-
-var _lodash = require(624     ); // 624 = lodash
-
-var _searchListStore = require(623                ); // 623 = ./searchListStore
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var __decorate = this && this.__decorate || function (decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var TeamsStore = exports.TeamsStore = function (_SearchListStore) {
-    _inherits(TeamsStore, _SearchListStore);
-
-    function TeamsStore() {
-        _classCallCheck(this, TeamsStore);
-
-        return _possibleConstructorReturn(this, (TeamsStore.__proto__ || Object.getPrototypeOf(TeamsStore)).apply(this, arguments));
-    }
-
-    _createClass(TeamsStore, [{
-        key: "fetchTeams",
-        value: function fetchTeams(projectName) {
-            return regeneratorRuntime.async(function fetchTeams$(_context) {
-                while (1) {
-                    switch (_context.prev = _context.next) {
-                        case 0:
-                            this._projectName = projectName;
-                            return _context.abrupt("return", _get(TeamsStore.prototype.__proto__ || Object.getPrototypeOf(TeamsStore.prototype), "fetchData", this).call(this));
-
-                        case 2:
-                        case "end":
-                            return _context.stop();
-                    }
-                }
-            }, null, this);
-        }
-    }, {
-        key: "filterItems",
-        value: function filterItems() {
-            var _this2 = this;
-
-            return (0, _lodash.filter)(this.items, function (item) {
-                return (0, _lodash.startsWith)(item.name, _this2.filterTerm);
-            });
-        }
-    }, {
-        key: "transformData",
-        value: function transformData(data) {
-            return (0, _lodash.map)(data.value, function (item) {
-                return { id: item.id, name: item.name };
-            });
-        }
-    }, {
-        key: "getPath",
-        value: function getPath() {
-            var base = "https://msmobilecenter.visualstudio.com/DefaultCollection/_apis/projects";
-            return base + "/" + this._projectName + "/teams?api-version=1.0";
-        }
-    }]);
-
-    return TeamsStore;
-}(_searchListStore.SearchListStore);
-
-__decorate([_mobx.action], TeamsStore.prototype, "fetchTeams", null);
-}, 627, null, "vsts-mobile-pr/app/stores/teamsStore.js");
 __d(/* vsts-mobile-pr/app/components/repositories.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
     value: true
 });
@@ -65914,10 +65911,9 @@ var PullRequestsStore = exports.PullRequestsStore = function (_SearchListStore) 
     }, {
         key: "filterItems",
         value: function filterItems() {
-            var _this2 = this;
-
+            var filterString = this.filterTerm ? this.filterTerm.toLowerCase() : "";
             return (0, _lodash.filter)(this.items, function (item) {
-                return (0, _lodash.startsWith)(item.name, _this2.filterTerm);
+                return (0, _lodash.startsWith)(item.name.toLowerCase(), filterString);
             });
         }
     }, {
@@ -66126,10 +66122,9 @@ var RepositoriesStore = exports.RepositoriesStore = function (_SearchListStore) 
     }, {
         key: "filterItems",
         value: function filterItems() {
-            var _this2 = this;
-
+            var filterString = this.filterTerm ? this.filterTerm.toLowerCase() : "";
             return (0, _lodash.filter)(this.items, function (item) {
-                return (0, _lodash.startsWith)(item.name, _this2.filterTerm);
+                return (0, _lodash.startsWith)(item.name.toLowerCase(), filterString);
             });
         }
     }, {
@@ -66186,10 +66181,9 @@ var ProjectsStore = exports.ProjectsStore = function (_SearchListStore) {
     _createClass(ProjectsStore, [{
         key: 'filterItems',
         value: function filterItems() {
-            var _this2 = this;
-
+            var filterString = this.filterTerm ? this.filterTerm.toLowerCase() : "";
             return (0, _lodash.filter)(this.items, function (item) {
-                return (0, _lodash.startsWith)(item.name, _this2.filterTerm);
+                return (0, _lodash.startsWith)(item.name.toLowerCase(), filterString);
             });
         }
     }, {

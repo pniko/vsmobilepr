@@ -17,7 +17,8 @@ export class RepositoriesStore extends SearchListStore {
     }
 
     filterItems(): any[] {
-        return filter(this.items, (item) => { return startsWith(item.name, this.filterTerm); });
+        const filterString = this.filterTerm ? this.filterTerm.toLowerCase() : "";
+        return filter(this.items, (item) => { return startsWith(item.name.toLowerCase(), filterString); });
     }
 
     transformData(data: any): any[] {

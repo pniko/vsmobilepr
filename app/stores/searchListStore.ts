@@ -57,9 +57,9 @@ export abstract class SearchListStore {
 
   @action
   setFilterTerm(filterTerm: string): void {
-    this.filterTerm = filterTerm;
+    this.filterTerm = filterTerm.toLowerCase();
     const filteredItems = this.filterItems()
-    this.datasource = this.datasource.cloneWithRows(map(filteredItems, 'name'));
+    this.datasource = this.datasource.cloneWithRows(filteredItems);
   }
 
   abstract getPath(): string;
