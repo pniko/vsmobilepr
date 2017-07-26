@@ -58315,7 +58315,7 @@ var Projects = _wrapComponent("Projects")(function (_Component) {
             var _this2 = this;
 
             return _react3.default.createElement(_searchList.SearchList, { store: this.store, hasSearch: true, renderRow: function renderRow(rowData) {
-                    return _react3.default.createElement(_listRow.ListRow, { title: rowData, onRowPressed: function onRowPressed(projectName) {
+                    return _react3.default.createElement(_listRow.ListRow, { title: rowData.name, onRowPressed: function onRowPressed(projectName) {
                             return _this2.onProjectSelected(projectName);
                         }, __source: {
                             fileName: _jsxFileName,
@@ -58567,9 +58567,11 @@ var SearchListStore = exports.SearchListStore = function () {
         _classCallCheck(this, SearchListStore);
 
         this.loadingState = LoadingState.Loaded;
-        this.datasource = new _reactNative.ListView.DataSource({ rowHasChanged: function rowHasChanged(r1, r2) {
+        this.datasource = new _reactNative.ListView.DataSource({
+            rowHasChanged: function rowHasChanged(r1, r2) {
                 return r1 !== r2;
-            } });
+            }
+        });
         this.datasource = this.datasource.cloneWithRows([]);
     }
 
@@ -58604,7 +58606,7 @@ var SearchListStore = exports.SearchListStore = function () {
                             json = _context.sent;
 
                             this.items = this.transformData(json);
-                            this.datasource = this.datasource.cloneWithRows((0, _lodash.map)(this.items, this.visibleValue()));
+                            this.datasource = this.datasource.cloneWithRows(this.items);
                             this.loadingState = LoadingState.Loaded;
                             _context.next = 20;
                             break;
@@ -58655,18 +58657,12 @@ var SearchListStore = exports.SearchListStore = function () {
             var filteredItems = this.filterItems();
             this.datasource = this.datasource.cloneWithRows((0, _lodash.map)(filteredItems, 'name'));
         }
-    }, {
-        key: "visibleValue",
-        value: function visibleValue() {
-            return "name";
-        }
     }]);
 
     return SearchListStore;
 }();
 
 __decorate([_mobx.observable], SearchListStore.prototype, "datasource", void 0);
-__decorate([_mobx.observable], SearchListStore.prototype, "items", void 0);
 __decorate([_mobx.observable], SearchListStore.prototype, "loadingState", void 0);
 __decorate([_mobx.observable], SearchListStore.prototype, "filterTerm", void 0);
 __decorate([_mobx.action], SearchListStore.prototype, "fetchData", null);
@@ -65466,7 +65462,7 @@ var Teams = _wrapComponent("Teams")(function (_Component) {
                         }
                     },
                     _react3.default.createElement(_searchList.SearchList, { store: this.store, hasSearch: true, renderRow: function renderRow(rowData) {
-                            return _react3.default.createElement(_listRow.ListRow, { title: rowData, onRowPressed: function onRowPressed(teamName) {
+                            return _react3.default.createElement(_listRow.ListRow, { title: rowData.name, onRowPressed: function onRowPressed(teamName) {
                                     return _this2.onTeamSelected(teamName);
                                 }, __source: {
                                     fileName: _jsxFileName,
@@ -65575,7 +65571,9 @@ var TeamsStore = exports.TeamsStore = function (_SearchListStore) {
     }, {
         key: "transformData",
         value: function transformData(data) {
-            return data.value;
+            return (0, _lodash.map)(data.value, function (item) {
+                return { id: item.id, name: item.name };
+            });
         }
     }, {
         key: "getPath",
@@ -65694,7 +65692,7 @@ var Repositories = _wrapComponent("Repositories")(function (_Component) {
                 });
             } else {
                 return _react3.default.createElement(_searchList.SearchList, { store: this.store, hasSearch: true, renderRow: function renderRow(rowData) {
-                        return _react3.default.createElement(_listRow.ListRow, { title: rowData, onRowPressed: function onRowPressed(repositoryName) {
+                        return _react3.default.createElement(_listRow.ListRow, { title: rowData.name, onRowPressed: function onRowPressed(repositoryName) {
                                 return _this2.onRepositorySelected(repositoryName);
                             }, __source: {
                                 fileName: _jsxFileName,
@@ -65828,8 +65826,8 @@ var PullRequests = _wrapComponent("PullRequests")(function (_Component) {
                 });
             } else {
                 return _react3.default.createElement(_searchList.SearchList, { store: this.store, hasSearch: true, renderRow: function renderRow(rowData) {
-                        return _react3.default.createElement(_listRow.ListRow, { title: rowData, onRowPressed: function onRowPressed(pullRequestName) {
-                                return _this2.onPullRequestSelected(pullRequestName);
+                        return _react3.default.createElement(_listRow.ListRow, { title: rowData.name, data: rowData, onRowPressed: function onRowPressed(pullRequestName, rowData) {
+                                return _this2.onPullRequestSelected(pullRequestName, rowData);
                             }, __source: {
                                 fileName: _jsxFileName,
                                 lineNumber: 30
@@ -65844,7 +65842,7 @@ var PullRequests = _wrapComponent("PullRequests")(function (_Component) {
         }
     }, {
         key: "onPullRequestSelected",
-        value: function onPullRequestSelected(pullRequestName) {
+        value: function onPullRequestSelected(pullRequestName, rowData) {
             this.selectedPullRequest = pullRequestName;
         }
     }]);
@@ -65925,22 +65923,9 @@ var PullRequestsStore = exports.PullRequestsStore = function (_SearchListStore) 
     }, {
         key: "transformData",
         value: function transformData(data) {
-            for (var _iterator = data.value, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[typeof Symbol === "function" ? Symbol.iterator : "@@iterator"]();;) {
-                var _ref;
-
-                if (_isArray) {
-                    if (_i >= _iterator.length) break;
-                    _ref = _iterator[_i++];
-                } else {
-                    _i = _iterator.next();
-                    if (_i.done) break;
-                    _ref = _i.value;
-                }
-
-                var pr = _ref;
-
-                pr.name = pr.title;
-            }
+            return (0, _lodash.map)(data.value, function (item) {
+                return { id: item.pullRequestId, name: item.title };
+            });
         }
     }, {
         key: "getPath",
@@ -66052,7 +66037,7 @@ var ListRow = exports.ListRow = _wrapComponent('ListRow')(function (_Component) 
     }, {
         key: 'onRowPressed',
         value: function onRowPressed() {
-            this.props.onRowPressed(this.props.title);
+            this.props.onRowPressed(this.props.title, this.props.data);
         }
     }]);
 
@@ -66150,7 +66135,9 @@ var RepositoriesStore = exports.RepositoriesStore = function (_SearchListStore) 
     }, {
         key: "transformData",
         value: function transformData(data) {
-            return data.value;
+            return (0, _lodash.map)(data.value, function (item) {
+                return { id: item.id, name: item.name };
+            });
         }
     }, {
         key: "getPath",
@@ -66208,7 +66195,10 @@ var ProjectsStore = exports.ProjectsStore = function (_SearchListStore) {
     }, {
         key: 'transformData',
         value: function transformData(data) {
-            return data.value;
+            var list = (0, _lodash.map)(data.value, function (item) {
+                return { id: item.id, name: item.name };
+            });
+            return list;
         }
     }, {
         key: 'getPath',

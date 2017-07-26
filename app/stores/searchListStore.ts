@@ -14,13 +14,15 @@ export enum LoadingState {
 export abstract class SearchListStore {
 
   @observable datasource: any;
-  @observable items: any[];
+  items: any[];
   @observable loadingState: LoadingState;
   @observable filterTerm: string;
 
   constructor() {
     this.loadingState = LoadingState.Loaded;
-    this.datasource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.datasource = new ListView.DataSource({ 
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
     this.datasource = this.datasource.cloneWithRows([]);
   }
 
@@ -35,7 +37,7 @@ export abstract class SearchListStore {
       });
       const json = await response.json();
       this.items = this.transformData(json);
-      this.datasource = this.datasource.cloneWithRows(map(this.items, this.visibleValue()));
+      this.datasource = this.datasource.cloneWithRows(this.items);
       this.loadingState = LoadingState.Loaded;
     } catch (err) {
       this.loadingState = LoadingState.Failed;
@@ -58,10 +60,6 @@ export abstract class SearchListStore {
     this.filterTerm = filterTerm;
     const filteredItems = this.filterItems()
     this.datasource = this.datasource.cloneWithRows(map(filteredItems, 'name'));
-  }
-
-  visibleValue() {
-    return "name";
   }
 
   abstract getPath(): string;

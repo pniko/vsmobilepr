@@ -12,7 +12,8 @@ export class ProjectsStore extends SearchListStore {
   }
 
   transformData(data: any): any[] {
-    return data.value;
+    const list = map(data.value, (item) => { return {id: item.id, name: item.name}});
+    return list;
   }
 
   getPath(): string {

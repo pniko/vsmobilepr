@@ -36,12 +36,12 @@ export class PullRequests extends Component<PullRequestsProps, {}> {
             return (<SearchList
                 store={this.store}
                 hasSearch={true}
-                renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(pullRequestName) => this.onPullRequestSelected(pullRequestName)} />}
+                renderRow={(rowData) => <ListRow title={rowData.name} data={rowData} onRowPressed={(pullRequestName, rowData) => this.onPullRequestSelected(pullRequestName, rowData)} />}
             />);
         }
     }
 
-    private onPullRequestSelected(pullRequestName: string) {
+    private onPullRequestSelected(pullRequestName: string, rowData) {
         this.selectedPullRequest = pullRequestName;
     }
 }

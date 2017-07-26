@@ -4,7 +4,8 @@ import styles from '../styles/listRowStyles';
 
 class ListRowProps {
   title: string;
-  onRowPressed: (row: string) => (void);
+  data?: any; 
+  onRowPressed: (row: string, rowData?) => (void);
 }
 
 export class ListRow extends Component<ListRowProps, {}> {
@@ -18,6 +19,6 @@ export class ListRow extends Component<ListRowProps, {}> {
   }
 
   private onRowPressed() {
-    this.props.onRowPressed(this.props.title)
+    this.props.onRowPressed(this.props.title, this.props.data);
   }
 }

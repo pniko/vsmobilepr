@@ -23,12 +23,8 @@ export class PullRequestsStore extends SearchListStore {
     }
 
     transformData(data: any): any[] {
-        return data.value;
+        return map(data.value, (item) => { return { id: item.pullRequestId, name: item.title } });
     }
-
-    visibleValue() {
-        return "title";
-    } 
 
     getPath(): string {
         let url = ""

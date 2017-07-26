@@ -6,14 +6,14 @@ import { filter, startsWith, map } from 'lodash';
 import { SearchListStore } from './searchListStore';
 
 export class RepositoriesStore extends SearchListStore {
-    _projectName: string; 
-    _teamName: string; 
+    _projectName: string;
+    _teamName: string;
 
-    @action 
+    @action
     async fetchRepositories(projectName: string, teamName: string) {
         this._projectName = projectName;
         this._teamName = teamName;
-        return super.fetchData(); 
+        return super.fetchData();
     }
 
     filterItems(): any[] {
@@ -21,7 +21,7 @@ export class RepositoriesStore extends SearchListStore {
     }
 
     transformData(data: any): any[] {
-        return data.value;
+        return map(data.value, (item) => { return { id: item.id, name: item.name } });
     }
 
     getPath(): string {

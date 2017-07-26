@@ -19,8 +19,8 @@ export class TeamsStore extends SearchListStore {
     }
 
     transformData(data: any): any[] {
-        return data.value;
-    }
+    return map(data.value, (item) => { return {id: item.id, name: item.name}});
+  }
 
     getPath(): string {
         const base = `https://msmobilecenter.visualstudio.com/DefaultCollection/_apis/projects`;

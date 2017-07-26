@@ -42,7 +42,7 @@ export class Teams extends Component<TeamsProps, {}> {
                 <SearchList
                     store={this.store}
                     hasSearch={true}
-                    renderRow={(rowData) => <ListRow title={rowData} onRowPressed={(teamName) => this.onTeamSelected(teamName)} />}
+                    renderRow={(rowData) => <ListRow title={rowData.name} onRowPressed={(teamName) => this.onTeamSelected(teamName)} />}
                 /><Button title="Don't Select Team" onPress={() => this.onTeamSelected()} /></View>);
         }
     }
