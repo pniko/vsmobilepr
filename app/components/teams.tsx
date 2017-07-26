@@ -17,7 +17,6 @@ class TeamsProps {
 export class Teams extends Component<TeamsProps, {}> {
 
     private store: TeamsStore;
-    @observable selectedTeamName: string;
     @observable skipped: boolean;
 
     constructor() {
@@ -31,19 +30,12 @@ export class Teams extends Component<TeamsProps, {}> {
 
     render() {
         const { projectName } = this.props;
-        if (this.skipped) {
-            return (<Repositories projectName={projectName} />)
-        }
-        if (this.store.loadingState === LoadingState.Loaded && this.selectedTeamName) {
-            return (<Repositories projectName={projectName} teamName={this.selectedTeamName} />)
-        } else {
-            return (<View style={styles.container}>
-                <SearchList
-                    store={this.store}
-                    hasSearch={false}
-                    renderRow={(rowData) => <ListRow title={rowData.item.name} onRowPressed={(teamName) => this.onTeamSelected(teamName)} />}
-                /><Button title="Don't Select Team" onPress={() => this.onTeamSelected()} /></View>);
-        }
+        return (<View style={styles.container}>
+            <SearchList
+                store={this.store}
+                hasSearch={false}
+                renderRow={(rowData) => <ListRow title={rowData.item.name} onRowPressed={(teamName, rowData) => this.onTeamSelected(teamName)} />}
+            /><Button title="Don't Select Team" onPress={() => this.onTeamSelected()} /></View>);
     }
 
     private onTeamSelected(teamName?: string) {
