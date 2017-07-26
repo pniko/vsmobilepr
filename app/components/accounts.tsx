@@ -77,7 +77,7 @@ export default class Accounts extends Component<any, AccountState> {
   }
 
   onAccountSelected(accountName: string): void {
-    const account: IAccount = find(this.state.accounts, (item) => { return item.name = accountName; });
+    const account: IAccount = find(this.state.accounts, (item) => { return item.name === accountName; });
     AccountManager.setCurrentAccount(account)
     const nextRoute = {
       component: Projects,
