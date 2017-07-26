@@ -3,21 +3,25 @@ import {
 } from 'react-native';
 import { observable, computed, action } from 'mobx'
 import { filter, map } from 'lodash';
-import TokenManager from '../helpers/tokenManager';
 import { ListStore } from './listStore';
+import AccountManager from '../helpers/accountManager';
 
-export abstract class SearchListStore extends ListStore {
+export enum LoadingState {
+  Loading = 1,
+  Failed,
+  Loaded,
+}
+
+export abstract class SearchListStore extends ListStore{
+
+  @observable items: any[];
+  @observable loadingState: LoadingState;
   @observable filterTerm: string;
-
-  constructor() {
-    super()
-  }
 
   @action
   setFilterTerm(filterTerm: string): void {
     this.filterTerm = filterTerm;
-    const filteredItems = this.filterItems()
-    super.datasource = super.datasource.cloneWithRows(filteredItems);
+    this.filteredItems = this.filterItems();
   }
 
   abstract filterItems(): any[];

@@ -17,8 +17,6 @@ class TeamsProps {
 export class Teams extends Component<TeamsProps, {}> {
 
     private store: TeamsStore;
-    private _projectName: string;
-    @observable selectedTeamName: string;
     @observable skipped: boolean;
 
     constructor() {
@@ -27,31 +25,26 @@ export class Teams extends Component<TeamsProps, {}> {
     }
 
     componentDidMount() {
-        this._projectName = this.props.projectName;
-        this.store.fetchTeams(this._projectName);
+        this.store.fetchTeams(this.props.projectName);
     }
 
     render() {
-        if (this.skipped) {
-            return (<Repositories projectName={this._projectName} />)
-        }
-        if (this.store.loadingState === LoadingState.Loaded && this.selectedTeamName) {
-            return (<Repositories projectName={this._projectName} teamName={this.selectedTeamName} />)
-        } else {
-            return (<View style={styles.container}>
-                <SearchList
-                    store={this.store}
-                    hasSearch={true}
-                    renderRow={(rowData) => <ListRow title={rowData.name} onRowPressed={(teamName) => this.onTeamSelected(teamName)} />}
-                /><Button title="Don't Select Team" onPress={() => this.onTeamSelected()} /></View>);
-        }
+        const { projectName } = this.props;
+        return (<View style={styles.container}>
+            <SearchList
+                store={this.store}
+                hasSearch={false}
+                renderRow={(rowData) => <ListRow title={rowData.item.name} onRowPressed={(teamName, rowData) => this.onTeamSelected(teamName)} />}
+            /><Button title="Don't Select Team" onPress={() => this.onTeamSelected()} /></View>);
     }
 
     private onTeamSelected(teamName?: string) {
+        const { projectName } = this.props;
+        // TODO: The team name inside the URL doesn't seem to work. Readd it again once we figured out how to add it
         const nextRoute = {
             component: Repositories,
             title: "Repositories",
-            passProps: { projectName: this._projectName, teamName: this.selectedTeamName }
+            passProps: { projectName: projectName }
         };
         (this.props as any).navigator.push(nextRoute);
     }

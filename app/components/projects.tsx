@@ -10,7 +10,7 @@ import { observable } from 'mobx'
 import styles from '../styles/searchListStyles';
 
 @observer
-export default class Projects extends Component {
+export default class Projects extends Component<any, {}> {
 
   private store: ProjectsStore;
 
@@ -27,7 +27,7 @@ export default class Projects extends Component {
       return (<SearchList
         store={this.store}
         hasSearch={true}
-        renderRow={(rowData) => <ListRow title={rowData.name} onRowPressed={(projectName) => this.onProjectSelected(projectName)} />}
+        renderRow={(rowData => <ListRow title={rowData.item.name} onRowPressed={(projectName) => this.onProjectSelected(projectName)} />)}
       />);
   }
 

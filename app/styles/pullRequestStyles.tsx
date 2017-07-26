@@ -4,14 +4,16 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'stretch'
   },
-  input: {
-    height: 40, 
-    borderColor: 'gray', 
+  list: {
+    flex: 1,
+  },
+  sectionHeader: {
+    flex: 1,
+    padding: 10,
     borderWidth: 1,
-    margin: 20,
-    padding: 10
+    borderColor: 'silver',
+    backgroundColor: 'whitesmoke'
   }
 });

@@ -5,7 +5,13 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignSelf: 'stretch'
+    alignItems: 'center'
+  },
+  emptyText: {
+    color: 'gray',
+    fontSize: 20,
+    padding: 40,
+    textAlign: 'center'
   },
   listcontainer: {
     marginTop: 65,
@@ -14,22 +20,6 @@ export default StyleSheet.create({
     alignSelf: 'stretch'
   },
   list: {
-    flex: 1,
+    flex: 1
   },
-  staticRow: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    height: 40
-  },
-  searchBar: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    margin: 10,
-    padding: 10
-  },
-  emptyText: {
-    textAlign: 'center'
-  }
 });

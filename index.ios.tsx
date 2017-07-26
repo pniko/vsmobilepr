@@ -5,8 +5,7 @@
  */
 import { observable } from 'mobx';
 import { observer } from 'mobx-react/native';
-import Login from './app/components/login';
-import Projects from './app/components/projects';
+import Accounts from './app/components/accounts';
 import Teams from './app/components/teams';
 import React, { Component } from 'react';
 import {
@@ -20,20 +19,24 @@ import {
 
 @observer export default class VsMobilePR extends Component {
 
-  @observable showLogin = true;
+  private pushedComponent: any;
 
   render() {
-    if (this.showLogin) {
-      return <Login onLoginClicked={() => { this.showLogin = false; }} />
-    } else {
-      return <NavigatorIOS
-        initialRoute={{
-          component: Projects,
-          title: 'Projects',
-        }}
-        style={{ flex: 1 }}
-      />
-    }
+    return <NavigatorIOS
+      initialRoute={{
+        component: Accounts,
+        title: 'Accounts',
+        rightButtonTitle: 'Add',
+        passProps: {
+          ref: (component) => { this.pushedComponent = component },
+        },
+        onRightButtonPress: () => {
+          // call func
+          this.pushedComponent && this.pushedComponent.onRightButtonPress();
+        }
+      }}
+      style={{ flex: 1 }}
+    />
   }
 }
 

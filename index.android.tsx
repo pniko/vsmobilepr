@@ -5,7 +5,6 @@
  */
 import {observable} from 'mobx';
 import {observer} from 'mobx-react/native';
-import Login from './app/components/login'
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -19,7 +18,7 @@ import {
 
   render() {
     return (
-      <Login />
+      <View />
     );
   }
 }

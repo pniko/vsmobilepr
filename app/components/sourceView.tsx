@@ -50,11 +50,8 @@ export default class SourceView extends Component<any, any> {
 
 
         return (
-            <View  style={{ alignSelf: 'stretch' }}>
+            <View style={{ alignSelf: 'stretch' }}>
                 <View style={styles.container}>
-                    <View style={[styles.box, styles.header]}>
-                        <Text style={{ fontSize: 30, paddingLeft: 20, paddingTop: 20 }}>SampleFile.ts</Text>
-                    </View>
                     <View style={[styles.box, styles.body]}>
                         <SourceDiff baseTextLines={baseText} newTextLines={newText} />
                     </View>

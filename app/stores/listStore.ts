@@ -3,7 +3,9 @@ import {
 } from 'react-native';
 import { observable, computed, action } from 'mobx'
 import { filter, map } from 'lodash';
-import TokenManager from '../helpers/tokenManager';
+import AccountManager from '../helpers/accountManager';
+
+var base64 = require('base-64');
 
 export enum LoadingState {
   Loading = 1,
@@ -13,29 +15,25 @@ export enum LoadingState {
 
 export abstract class ListStore {
   items: any[];
-  @observable datasource: any;
+  @observable filteredItems: any[];
   @observable loadingState: LoadingState;
 
   constructor() {
     this.loadingState = LoadingState.Loaded;
-    this.datasource = new ListView.DataSource({ 
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-    this.datasource = this.datasource.cloneWithRows([]);
+    this.filteredItems = [];
   }
 
   @action
   async fetchData(): Promise<void> {
     try {
       this.loadingState = LoadingState.Loading;
-      const headers = await this.getHeaders()
       const response = await fetch(this.getPath(), {
-        headers: headers,
+        headers: this.getHeaders(),
         method: 'GET'
       });
       const json = await response.json();
       this.items = this.transformData(json);
-      this.datasource = this.datasource.cloneWithRows(this.items);
+      this.filteredItems = this.items;
       this.loadingState = LoadingState.Loaded;
     } catch (err) {
       this.loadingState = LoadingState.Failed;
@@ -43,12 +41,12 @@ export abstract class ListStore {
     }
   }
 
-  private async getHeaders(): Promise<any> {
-    var token = await TokenManager.readToken();
-    // token = btoa(`:${token}`);
+  private getHeaders(): any {
+    var accountToken = AccountManager.getCurrentAccount().token;
+    var base64Token = base64.encode(`:${accountToken}`);
 
     return {
-      Authorization: `Basic ${token}`,
+      Authorization: `Basic ${base64Token}`,
       Accept: 'application/json'
     }
   }

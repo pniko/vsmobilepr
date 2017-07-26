@@ -6,13 +6,13 @@ import { filter, startsWith, map } from 'lodash';
 import { SearchListStore } from './searchListStore';
 
 export class RepositoriesStore extends SearchListStore {
-    _projectName: string;
-    _teamName: string;
+    projectName: string;
+    teamName: string;
 
     @action
     async fetchRepositories(projectName: string, teamName: string) {
-        this._projectName = projectName;
-        this._teamName = teamName;
+        this.projectName = projectName;
+        this.teamName = teamName;
         return super.fetchData();
     }
 
@@ -28,8 +28,8 @@ export class RepositoriesStore extends SearchListStore {
     getPath(): string {
         let url = ""
         url += `https://msmobilecenter.visualstudio.com/DefaultCollection`;
-        url += `/${this._projectName}`;
-        url += this._teamName ? `/${this._teamName}` : "";
+        url += `/${this.projectName}`;
+        url += this.teamName ? `/${this.teamName}` : "";
         url += `/_apis/git/repositories`
         url += "?api-version=1.0"
         return url;
