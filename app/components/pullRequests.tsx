@@ -35,8 +35,8 @@ export class PullRequests extends Component<PullRequestsProps, {}> {
         } else {
             return (<SearchList
                 store={this.store}
-                hasSearch={true}
-                renderRow={(rowData) => <ListRow title={rowData.name} data={rowData} onRowPressed={(pullRequestName, rowData) => this.onPullRequestSelected(pullRequestName, rowData)} />}
+                hasSearch={false}
+                renderRow={(rowData) => <ListRow title={rowData.item.name} data={rowData} onRowPressed={(pullRequestName, rowData) => this.onPullRequestSelected(pullRequestName, rowData)} />}
             />);
         }
     }

@@ -35,8 +35,8 @@ export class Repositories extends Component<RepositoriesProps, {}> {
         } else {
             return (<SearchList
                 store={this.store}
-                hasSearch={true}
-                renderRow={(rowData) => <ListRow title={rowData.name} onRowPressed={(repositoryName) => this.onRepositorySelected(repositoryName)} />}
+                hasSearch={false}
+                renderRow={(rowData) => <ListRow title={rowData.item.name} onRowPressed={(repositoryName) => this.onRepositorySelected(repositoryName)} />}
             />);
         }
     }
