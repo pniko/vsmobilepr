@@ -43,7 +43,7 @@ export class PullRequests extends Component<PullRequestsProps, {}> {
         const nextRoute = {
             component: PullRequest,
             title: "Pull Request",
-            passProps: { projectName: projectName, teamName: teamName, repositoryName: repositoryName, pullRequest: rowData.item }
+            passProps: { projectName: projectName, repositoryName: repositoryName, latestCommitId: rowData.item.lastCommitId}
         };
         (this.props as any).navigator.push(nextRoute);
     }

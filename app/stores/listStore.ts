@@ -14,7 +14,7 @@ export enum LoadingState {
 }
 
 export abstract class ListStore {
-  items: any[];
+  public items: any[];
   @observable filteredItems: any[];
   @observable loadingState: LoadingState;
 
@@ -27,12 +27,11 @@ export abstract class ListStore {
   async fetchData(): Promise<void> {
     try {
       this.loadingState = LoadingState.Loading;
-      const response = await fetch(this.getPath(), {
-        headers: this.getHeaders(),
-        method: 'GET'
-      });
-      const json = await response.json();
-      this.items = this.transformData(json);
+      this.items = await this.getItems();
+      if (!this.items) {
+        const json = await ListStore.getJson(this.getPath());
+        this.items = this.transformData(json);
+      }
       this.filteredItems = this.items;
       this.loadingState = LoadingState.Loaded;
     } catch (err) {
@@ -41,7 +40,25 @@ export abstract class ListStore {
     }
   }
 
-  private getHeaders(): any {
+  public static async getJson(path: string) {
+    const response = await fetch(path, {
+        headers: ListStore.getHeaders(),
+        method: 'GET'
+      });
+      const json = await response.json();
+      return json;
+  }
+
+  public static async getBody(path: string) {
+    const response = await fetch(path, {
+        headers: ListStore.getHeaders(),
+        method: 'GET'
+      });
+      const body = await response.text();
+      return body;
+  }
+
+  private static getHeaders(): any {
     var accountToken = AccountManager.getCurrentAccount().token;
     var base64Token = base64.encode(`:${accountToken}`);
 
@@ -51,6 +68,22 @@ export abstract class ListStore {
     }
   }
 
-  abstract getPath(): string;
-  abstract transformData(data: any): any[];
+  /**
+   * This method can be overriden to return an array with the items to save in the data source. 
+   * This class will still handle all the state machine
+   * 
+   * @returns {*} 
+   * @memberof ListStore
+   */
+  public async getItems(): Promise<any[]> {
+    return null;
+  }
+
+  public getPath(): string {
+    return null;
+  }
+
+  public transformData(date): any[] {
+    return null;
+  }
 }
