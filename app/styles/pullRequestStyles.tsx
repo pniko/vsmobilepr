@@ -12,7 +12,7 @@ export default StyleSheet.create({
   sectionHeader: {
     flex: 1,
     padding: 10,
-    borderWidth: 0.5,
+    borderWidth: 1,
     borderColor: 'silver',
     backgroundColor: 'whitesmoke'
   }
