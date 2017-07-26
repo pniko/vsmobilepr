@@ -11,9 +11,10 @@ export default StyleSheet.create({
     marginTop: 65,
     flex: 1,
     flexDirection: 'column',
+    alignSelf: 'stretch'
   },
   list: {
-    flex: 1
+    flex: 1,
   },
   staticRow: {
     flex: 1,
@@ -27,5 +28,8 @@ export default StyleSheet.create({
     borderWidth: 1,
     margin: 10,
     padding: 10
+  },
+  emptyText: {
+    textAlign: 'center'
   }
 });
