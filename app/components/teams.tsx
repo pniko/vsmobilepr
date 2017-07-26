@@ -40,10 +40,11 @@ export class Teams extends Component<TeamsProps, {}> {
 
     private onTeamSelected(teamName?: string) {
         const { projectName } = this.props;
+        // TODO: The team name inside the URL doesn't seem to work. Readd it again once we figured out how to add it
         const nextRoute = {
             component: Repositories,
             title: "Repositories",
-            passProps: { projectName: projectName, teamName: this.selectedTeamName }
+            passProps: { projectName: projectName }
         };
         (this.props as any).navigator.push(nextRoute);
     }
