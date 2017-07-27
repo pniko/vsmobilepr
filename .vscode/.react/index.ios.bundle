@@ -62525,7 +62525,12 @@ var SourceDiff = function (_Component) {
             var newTextLines = this.stringAsLines(this.props.newTextLines);
             _difflib2.default.set_seqs(baseTextLines, newTextLines);
             var codes = _difflib2.default.get_opcodes();
-            var diff = this.opcodesAsDiff(codes, baseTextLines, newTextLines);
+            var diff = void 0;
+            try {
+                diff = this.opcodesAsDiff(codes, baseTextLines, newTextLines);
+            } catch (err) {
+                console.error("opcodesAsDiff: " + err);
+            }
             var longestString = 0;
             var longestRowNumber = 0;
             diff.forEach(function (d) {
@@ -62539,21 +62544,21 @@ var SourceDiff = function (_Component) {
                 {
                     __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 51
+                        lineNumber: 57
                     }
                 },
                 _react2.default.createElement(
                     _reactNative.ScrollView,
                     { horizontal: true, style: { padding: 5 }, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 52
+                            lineNumber: 58
                         }
                     },
                     _react2.default.createElement(
                         _reactNative.ScrollView,
                         { horizontal: true, __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 53
+                                lineNumber: 59
                             }
                         },
                         _react2.default.createElement(_reactNative.FlatList, { data: diff, renderItem: function renderItem(_ref) {
@@ -62561,7 +62566,7 @@ var SourceDiff = function (_Component) {
                                 return _this2.renderLine(item, longestString, longestRowNumber);
                             }, __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 54
+                                lineNumber: 60
                             }
                         }),
                         _react2.default.createElement(_reactNativePrompt2.default, { title: 'Comment', placeholder: 'Start typing', defaultValue: '', visible: this.state.promptVisible, onCancel: function onCancel() {
@@ -62570,7 +62575,7 @@ var SourceDiff = function (_Component) {
                                 return _this2.setState({ promptVisible: false, message: 'You said "' + value + '"' });
                             }, __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 56
+                                lineNumber: 62
                             }
                         })
                     )
@@ -62594,14 +62599,14 @@ var SourceDiff = function (_Component) {
                         backgroundColor: item.change == "delete" ? 'salmon' : item.change == "insert" ? 'lightgreen' : '#E0E0E0'
                     }, __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 61
+                        lineNumber: 67
                     }
                 },
                 _react2.default.createElement(
                     _reactNative.Text,
                     { style: styles.numberStyling, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 70
+                            lineNumber: 76
                         }
                     },
                     item.row
@@ -62615,7 +62620,7 @@ var SourceDiff = function (_Component) {
                             borderBottomWidth: .5
                         }, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 71
+                            lineNumber: 77
                         }
                     },
                     _react2.default.createElement(
@@ -62624,7 +62629,7 @@ var SourceDiff = function (_Component) {
                                 return _this3.setState({ promptVisible: true });
                             }, __source: {
                                 fileName: _jsxFileName,
-                                lineNumber: 77
+                                lineNumber: 83
                             }
                         },
                         item.line
@@ -62666,9 +62671,6 @@ var SourceDiff = function (_Component) {
                             b += jump;
                             n += jump;
                             i += jump - 1;
-                            console.log("th - ...");
-                            console.log("th - ...");
-                            console.log("td - skip");
 
                             if (idx + 1 == opcodes.length) {
                                 break;

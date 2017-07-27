@@ -50,7 +50,12 @@ export default class SourceDiff extends Component<any, any> {
 
         difflib.set_seqs(baseTextLines, newTextLines);
         let codes = difflib.get_opcodes();
-        const diff = this.opcodesAsDiff(codes, baseTextLines, newTextLines);
+        let diff;
+        try {
+        diff = this.opcodesAsDiff(codes, baseTextLines, newTextLines);
+        } catch (err) {
+            console.error("opcodesAsDiff: " + err);
+        }
 
         let longestString = 0; 
         let longestRowNumber = 0;
@@ -145,9 +150,9 @@ export default class SourceDiff extends Component<any, any> {
 						b += jump;
 						n += jump;
 						i += jump - 1;
-						console.log("th - ...");
-						console.log("th - ...");
-						console.log("td - skip");
+						// console.log("th - ...");
+						// console.log("th - ...");
+						// console.log("td - skip");
 						
 						// skip last lines if they're all equal
 						if (idx + 1 == opcodes.length) {
