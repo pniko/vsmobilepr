@@ -17,12 +17,7 @@ export class CommitChangesStore {
 
     public items: any[];
     @observable filteredItems: any[];
-    @observable loadingState: LoadingState;
-
-    constructor() {
-        this.loadingState = LoadingState.Loading;
-        this.filteredItems = [];
-    }
+    @observable loadingState = LoadingState.Loading;
 
     @action
     public async fetchPullRequestChanges(projectName, repositoryName, commitId) {
@@ -36,22 +31,27 @@ export class CommitChangesStore {
     async getItems(): Promise<any[]> {
         let items: IPullRequestChange[] = [];
         const json = await this.getJson(this.getChangesPath());
-        const fileChangesList = this.transformCommitChangesData(json);
-        
+        let fileChangesList = this.transformCommitChangesData(json);
         let promises = [];
 
         for (let commitFiles of fileChangesList) {
-            promises.push(this.fetchBlobs(commitFiles, items));
+            try {
+                await this.fetchBlobs(commitFiles, items);
+            } catch (err) {
+                console.log("fetchBlobs" + err);
+            }
+            
         }
+        
         await Promise.all(promises);
         return items;
     }
 
+    @action
     async fetchData(): Promise<void> {
         try {
             this.loadingState = LoadingState.Loading;
             this.items = await this.getItems();
-            this.filteredItems = this.items;
             this.loadingState = LoadingState.Loaded;
         } catch (err) {
             this.loadingState = LoadingState.Failed;
@@ -59,14 +59,14 @@ export class CommitChangesStore {
         }
     }
 
-    @action
     async fetchBlobs(commitFiles, items: any[]): Promise<void> {
-        const baseFile = await this.fetchBlob(commitFiles.originalObjectId);
-        const sourceFile = await this.fetchBlob(commitFiles.objectId);
+        const baseFile = commitFiles.originalObjectId ? await this.fetchBlob(commitFiles.originalObjectId) : ""; // added
+        const sourceFile = commitFiles.objectId ? await this.fetchBlob(commitFiles.objectId) : ""; // deleted
         items.push({
             path: commitFiles.path,
             baseFile: baseFile,
-            sourceFile: sourceFile
+            sourceFile: sourceFile,
+            changeType: commitFiles.changeType
         } as IPullRequestChange);
     }
 
@@ -85,7 +85,9 @@ export class CommitChangesStore {
             return {
                 objectId: fileChange.item.objectId,
                 originalObjectId: fileChange.item.originalObjectId,
-                path: fileChange.item.path
+                path: fileChange.item.path,
+                isFolder: fileChange.item.isFolder,
+                changeType: fileChange.changeType
             };
         });
     }

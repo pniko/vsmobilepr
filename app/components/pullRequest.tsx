@@ -33,16 +33,15 @@ export class PullRequest extends Component<PullRequestProps, {}> {
     }
 
     render() {
-        // TODO: Get data from store
-        const data = this.store.items;
-        const sections = map(data, (item) => { return { data: [item], title: item.path } });
-
         if (this.store.loadingState === LoadingState.Loaded) {
+            const data = this.store.items;
+            const sections = map(data, (item) => { return { data: [item], title: item.path } });
             return (<View style={styles.container}>
                 <SectionList style={styles.list}
                     renderItem={this.renderItem}
                     renderSectionHeader={this.renderSectionHeader}
                     sections={sections}
+                    keyExtractor={item => item.objectId + item.originalObjectId}
                 />
             </View >);
         } else {
@@ -51,14 +50,18 @@ export class PullRequest extends Component<PullRequestProps, {}> {
     }
 
     renderItem(item: any): JSX.Element {
-        return (
-            <SourceView baseText={item.item.baseFile} newText={item.item.sourceFile} />
-        );
+        if (item.item.changeType === "delete") {
+            return (<View />);
+        } else {
+            return (
+                <SourceView baseText={item.item.baseFile} newText={item.item.sourceFile} />
+            );
+        }
     }
 
     renderSectionHeader(section: any): JSX.Element {
         return (
-            <Text style={styles.sectionHeader}>{section.section.title}</Text>
+            <Text style={styles.sectionHeader}>{section.section.title} ({section.section.data[0].changeType})</Text>
         );
     }
 }
