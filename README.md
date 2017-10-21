@@ -10,7 +10,7 @@ Currently Visual Studio Team Services (VSTS) has support for Pull Requests on de
 ## Running the app
 After cloning the repo, and inside the project folder run:
 1. `npm install`
-2. `tsc`
+2. `gulp build`
 3. `react-native run-ios`
 
 ## Running the app on vscode 
@@ -18,7 +18,7 @@ Required VSCode extension:
 1. `React Native Tools`
 
 After cloning the repo, and inside the project folder run:
-1. `npm insall`
+1. `npm install`
 2. Choose the `Debug iOS` option in VSCode and Run it.
 
 #running tests
@@ -29,4 +29,5 @@ Note: Currently there is no support for vscode debugging.
 ## Enable Live Reload in iOS
 On the simulator, while the iOS app is running, click `Command+D` and choose `Enable Live Reload`. 
 Now every time, you save a `js` file, it will automatically update the release. 
-It won't work for `.ts` or `.tsx` files.
+To enable it to work with typescript files run:
+1. `gulp watch`
